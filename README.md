@@ -2,7 +2,7 @@
 
 ## A Meditation Application for Everyone
 This application main objective is to provide meditation courses and sessions across many categories to as many users as possible.  
-It is being developed by a group of three University of Aveiro students for the Human and Computer Interaction & Database subjects:  
+It is being developed by a group of three students of University of Aveiro, for the Human and Computer Interaction & Database subjects:  
 * Hugo Curto - LECI 3 Year Student
 * Sérgio Correia - LECI 3 Year Student
 * Ricardo Dias - LECI 3 Year Student
