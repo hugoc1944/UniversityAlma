@@ -10,14 +10,14 @@ It is being developed by a group of three students of University of Aveiro, for 
 ## Development
 
 ### Pre-requisites
-* Have [NODEJS](https://nodejs.org/en) installed and ready to run.
+* Have [NODEJS](https://nodejs.org/en){:target="_blank"} installed and ready to run.
 
 ### Running development server
 1.  Use the following command in a terminal:  
 ```npx expo start```  
-2.  Install [Expo Go](https://expo.dev/go) application in your mobile phone (Android or IOS);
+2.  Install [Expo Go](https://expo.dev/go){:target="_blank"} application in your mobile phone (Android or IOS);
 3.  Scan the QR Code displayed in the terminal in your Expo Go application (Android) or in your Iphone camera app (IOS);
 
 IMPORTANT: To run the application development view in your phone, both your computer and your phone must be connected to the same network.
 ### Technology
-* React Native - [Documentation](https://reactnative.dev/docs/getting-started)
+* React Native - [Documentation](https://reactnative.dev/docs/getting-started){:target="_blank"}
