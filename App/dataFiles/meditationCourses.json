@@ -1,0 +1,41 @@
+[
+    {
+        "id": 1,
+        "title": "Listen & Relax",
+        "description": "A combination of 5 sessions of listening for your mind",
+        "author": "Sandra Walker",
+        "category": "Calm",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "The objective of these sessions is for your mind to get some rest and calm down. Deeply breath while you listen. ",
+                "mediaType": "audio",
+                "mediaFile": "audioX.mp3"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "The objective of these sessions is for your mind to get some rest and calm down. Deeply breath while you listen. ",
+                "mediaType": "audio",
+                "mediaFile": "audioY.mp3"
+            },
+            {
+                "sessionNum": 3,
+                "sessionDescription": "The objective of these sessions is for your mind to get some rest and calm down. Deeply breath while you listen. ",
+                "mediaType": "audio",
+                "mediaFile": "audioZ.mp3"
+            },
+            {
+                "sessionNum": 4,
+                "sessionDescription": "The objective of these sessions is for your mind to get some rest and calm down. Deeply breath while you listen. ",
+                "mediaType": "audio",
+                "mediaFile": "audioT.mp3"
+            },
+            {
+                "sessionNum": 5,
+                "sessionDescription": "The objective of these sessions is for your mind to get some rest and calm down. Deeply breath while you listen. ",
+                "mediaType": "audio",
+                "mediaFile": "audioB.mp3"
+            }
+        ]
+    }
+]
