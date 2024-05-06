@@ -2,32 +2,34 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react'
 
-export default function MeditationBox({data}){
+export default function MeditationBox({ data }) {
 
     const togglePlayPause = async () => {
         // TODO: Redirect to the session page
     }
 
-  return (
-      <View style={styles.boxShape}>
-       <Text style={styles.cardTitle}>Listen & Relax</Text>
-       <Text style={styles.cardContent}>A combination of 5 sessions of listening for your mind</Text>
-       <Text style={styles.cardContent}>By: Tomás Dias</Text>
+    const { title, description, author, sessions } = data[0];
 
-<View style={{flexDirection: 'row', marginTop: 20, justifyContent: "space-between", alignItems: "center"}}>
-       <Text style={{color: '#fff', fontSize: 16, fontWeight: "bold"}}>5 Sessions</Text>
-       <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
-          <Icon
-            name={'play-arrow'}
-            size={30}
-            color="#000000"
-          />
-        </TouchableOpacity>
-</View>
-<Image source={require('../../assets/course/course_flower.png')} style={styles.image}></Image>
+    return (
+        <View style={styles.boxShape}>
+            <Text style={styles.cardTitle}>{title}</Text>
+            <Text style={styles.cardContent}>{description}</Text>
+            <Text style={styles.cardContent}>By: {author}</Text>
 
-      </View>
-  )
+            <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
+                <Text style={{ color: '#fff', fontSize: 16, fontWeight: "bold" }}>{sessions.length} Sessions</Text>
+                <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
+                    <Icon
+                        name={'play-arrow'}
+                        size={30}
+                        color="#000000"
+                    />
+                </TouchableOpacity>
+            </View>
+            <Image source={require('../../assets/course/course_flower.png')} style={styles.image}></Image>
+
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -50,19 +52,19 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     playPauseButton: {
-        width: 30,  
+        width: 30,
         height: 30,
-        borderRadius: 25,  
-        backgroundColor: '#ffffff',  
-      },
-      image: {
+        borderRadius: 25,
+        backgroundColor: '#ffffff',
+    },
+    image: {
         position: 'absolute',
         width: 187,
         height: 187,
         right: -39,
         bottom: -46,
         zIndex: -1,
-        transform: [{rotate: '-42deg'}],
+        transform: [{ rotate: '-42deg' }],
         opacity: 0.5
     },
 })
