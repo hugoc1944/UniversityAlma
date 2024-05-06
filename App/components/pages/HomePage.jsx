@@ -3,21 +3,17 @@ import React from 'react'
 
 import AudioPlayer from '../elements/p_bar';
 import { StatusBar } from 'expo-status-bar';
+import ProfilePicture from '../elements/profile_pic';
+import FourSquareButton from '../elements/corner_button';
+import CategoryNav from '../elements/category_nav';
 export default function HomePage() {
   return (
+    
     <View style={styles.container}>
-    <TouchableOpacity style={styles.buttonContainer} onPress={() => alert('Botão clicado')}>
-      <View style={styles.subButton} />
-      <View style={styles.subButton} />
-      <View style={styles.subButton} />
-      <View style={styles.subButton} />
-    </TouchableOpacity>
-    <View style={styles.profilePicContainer}>
-      <Image
-        source={{ uri: 'https://storage.googleapis.com/sticker-prod/3BtTZYTk8OZCQ9mA21oX/9.png' }}
-        style={styles.profilePic}
-      />
-    </View>
+    <FourSquareButton onPress={() => alert('Botão clicado')}/>
+      <ProfilePicture imageUrl='https://storage.googleapis.com/sticker-prod/3BtTZYTk8OZCQ9mA21oX/9.png' />
+
+    <CategoryNav />
     <AudioPlayer />
     <StatusBar style="auto" />
   </View>
