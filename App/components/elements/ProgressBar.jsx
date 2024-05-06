@@ -135,7 +135,7 @@ const AudioPlayer = () => {
         onSlidingStart={onSlidingStart}
         onSlidingComplete={onSlidingComplete}
         minimumTrackTintColor="#9BB1FD"
-        maximumTrackTintColor="#d3d3d3"
+        maximumTrackTintColor="rgba(8,30,63,0.1)"
         thumbTintColor="#9BB1FD"
         trackHeight={4}
       />
