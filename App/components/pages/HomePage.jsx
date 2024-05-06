@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 
-import AudioPlayer from '../elements/p_bar';
+import Volume from '../elements/Volume';
+
+import AudioPlayer from '../elements/ProgressBar';
 import { StatusBar } from 'expo-status-bar';
 import ProfilePicture from '../elements/profile_pic';
 import FourSquareButton from '../elements/corner_button';
