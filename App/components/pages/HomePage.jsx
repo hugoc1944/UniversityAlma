@@ -5,9 +5,9 @@ import Volume from '../elements/Volume';
 
 import AudioPlayer from '../elements/ProgressBar';
 import { StatusBar } from 'expo-status-bar';
-import ProfilePicture from '../elements/profile_pic';
-import FourSquareButton from '../elements/corner_button';
-import CategoryNav from '../elements/category_nav';
+import ProfilePicture from '../elements/ProfilePicture';
+import FourSquareButton from '../elements/CornerButton';
+import CategoryNav from '../elements/CategoryNav';
 export default function HomePage() {
   return (
     

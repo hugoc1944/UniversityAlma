@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-import Session from '../parents/Session'
+import SessionHeader from '../elements/SessionHeader'
 
-export default function Favorites() {
+export default function Session() {
   return (
     <View>
-      <Session />
+      
     </View>
   )
 }
