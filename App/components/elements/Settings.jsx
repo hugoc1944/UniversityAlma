@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',  // Centralize o título
   },
   section1: {
-    marginTop: 100,
+    marginTop: 60,
     paddingHorizontal: 130,  // Adiciona padding horizontal para evitar overflow
   },
   section: {
