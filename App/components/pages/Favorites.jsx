@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import  {React, useState, useEffect} from 'react'
 
 import Session from '../parents/Session'
 import TopHeader from '../parents/TopHeader'
 import MeditationBox from '../elements/MeditationBox'
 export default function Favorites() {
+  
   const favoriteIds = require('../../dataFiles/favorites.json');
   const meditations = require('../../dataFiles/meditationCourses.json'); 
   
