@@ -6,7 +6,7 @@ import {writeToJsonFile, readFromJsonFile} from '../../fileUtils'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart'
 
-export default function MeditationBox({ data, fav=true }) {
+export default function MeditationBox({ data, fav=true, onPress }) {
 
     const [favoriteIds, setFavoriteIds] = useState([]);
 
@@ -30,18 +30,6 @@ export default function MeditationBox({ data, fav=true }) {
     const { id, title, description, author, sessions } = data;
 
     const favoriteIds1 = require('../../dataFiles/favorites.json');
-
-    const favoriteColor = (id) => {
-        let updatedIds = [...favoriteIds1];
-        const index = updatedIds.findIndex(item => item.id === id);
-
-        //Se existir, remover do ficheiro, senão, adicionar
-        if (index !== -1){
-            return '#C2A5F7';
-        }else{
-            return '#FFFFFF';
-        }
-    }
 
     const handleButtonClick = async (id) => {
         let updatedIds = [...favoriteIds];
@@ -79,17 +67,16 @@ export default function MeditationBox({ data, fav=true }) {
                 <Text style={{ color: '#fff', fontSize: 16, fontWeight: "bold" }}>{sessions.length} Sessions</Text>
                 
                 <TouchableOpacity style={styles.favoriteButton} onPress={togglePlayPause}>
-                    <FontAwesomeIcon icon={faHeart} size={22} color={favoriteColor(id)}/>
+                    <FontAwesomeIcon icon={faHeart} size={22} color={'#C2A5F7'}/>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause} ocClick={handleButtonClick(id)}>
+                <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
                     <Icon
                             name={'play-arrow'}
                             size={30}
                             color="#000000"
                         />
                 </TouchableOpacity>
-                
             </View>
             <Image source={require('../../assets/course/course_flower.png')} style={styles.image}></Image>
         </View>
@@ -129,6 +116,8 @@ const styles = StyleSheet.create({
         height: 32,
         borderRadius: 25,
         backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     image: {
         position: 'absolute',
