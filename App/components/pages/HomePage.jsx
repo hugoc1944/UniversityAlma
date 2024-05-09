@@ -10,6 +10,7 @@ import SessionHeader from '../elements/SessionHeader';
 import Volume from '../elements/Volume';
 import TopHeader from '../parents/TopHeader';
 import HighlightedSession from '../elements/HighlightedSession';
+import Back from '../elements/Back';
 
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -54,6 +55,7 @@ export default function HomePage() {
           <AudioPlayer />
           <SessionHeader />
           <Volume />
+          <Back onPress={toggleElements} />
         </React.Fragment>
       )}
     </ScrollView>
