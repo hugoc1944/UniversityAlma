@@ -8,7 +8,7 @@ export default function MeditationBox({ data }) {
         // TODO: Redirect to the session page
     }
 
-    const { title, description, author, sessions } = data[0];
+    const { title, description, author, sessions } = data;
 
     return (
         <View style={styles.boxShape}>

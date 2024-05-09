@@ -37,5 +37,161 @@
                 "mediaFile": "audioB.mp3"
             }
         ]
+    },
+    {
+        "id": 2,
+        "title": "Meditation Mastery",
+        "description": "Achieve inner peace and tranquility through these guided meditation sessions",
+        "author": "Jonathan Smith",
+        "category": "Calm",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "Start your meditation journey with this introductory session focusing on breathing techniques.",
+                "mediaType": "audio",
+                "mediaFile": "meditation_intro.mp3"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "Delve deeper into mindfulness with this session on body scan meditation.",
+                "mediaType": "audio",
+                "mediaFile": "body_scan_meditation.mp3"
+            },
+            {
+                "sessionNum": 3,
+                "sessionDescription": "Cultivate loving-kindness and compassion with this heart-centered meditation practice.",
+                "mediaType": "audio",
+                "mediaFile": "loving_kindness_meditation.mp3"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Yoga for Flexibility",
+        "description": "Enhance your sense of calmness while improving flexibility and mobility with these yoga sessions",
+        "author": "Emma Roberts",
+        "category": "Calm",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "Start your journey to increased flexibility with this gentle yoga flow.",
+                "mediaType": "video",
+                "mediaFile": "flexibility_yoga_flow.mp4"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "Focus on stretching and lengthening your muscles with this session targeting the lower body.",
+                "mediaType": "video",
+                "mediaFile": "lower_body_stretching_yoga.mp4"
+            },
+            {
+                "sessionNum": 3,
+                "sessionDescription": "Release tension in your back and shoulders with this restorative yoga session.",
+                "mediaType": "video",
+                "mediaFile": "back_shoulder_restorative_yoga.mp4"
+            },
+            {
+                "sessionNum": 4,
+                "sessionDescription": "Improve your balance and stability with this core-strengthening yoga practice.",
+                "mediaType": "video",
+                "mediaFile": "core_strength_yoga.mp4"
+            },
+            {
+                "sessionNum": 5,
+                "sessionDescription": "Conclude your flexibility journey with this relaxing and rejuvenating yoga session.",
+                "mediaType": "video",
+                "mediaFile": "relaxing_yoga_session.mp4"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Sleep Soundly",
+        "description": "Drift into a peaceful slumber with these soothing sounds and guided relaxation techniques",
+        "author": "Michelle Johnson",
+        "category": "Sleep",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "Prepare your mind and body for rest with gentle breathing exercises and progressive muscle relaxation.",
+                "mediaType": "audio",
+                "mediaFile": "pre_sleep_relaxation.mp3"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "Let go of the day's stress and tension as you listen to calming nature sounds and guided imagery.",
+                "mediaType": "audio",
+                "mediaFile": "nighttime_nature_sounds.mp3"
+            },
+            {
+                "sessionNum": 3,
+                "sessionDescription": "Deepen your relaxation with a soothing bedtime story designed to lull you into a peaceful sleep.",
+                "mediaType": "audio",
+                "mediaFile": "bedtime_story.mp3"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Deep Relaxation",
+        "description": "Unwind and melt away stress with these guided relaxation exercises and calming music",
+        "author": "Sophie Williams",
+        "category": "Relax",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "Relax your mind and body with deep breathing and progressive muscle relaxation techniques.",
+                "mediaType": "audio",
+                "mediaFile": "deep_breathing_relaxation.mp3"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "Sink into a state of calmness and serenity as you listen to tranquil music and guided imagery.",
+                "mediaType": "audio",
+                "mediaFile": "serene_music_guidance.mp3"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Mindful Focus",
+        "description": "Sharpen your concentration and enhance productivity with mindfulness practices and focus-enhancing techniques",
+        "author": "David Smith",
+        "category": "Focus",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "Cultivate present moment awareness and focus with mindfulness meditation exercises.",
+                "mediaType": "audio",
+                "mediaFile": "mindfulness_meditation_focus.mp3"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "Train your brain to concentrate better with visualization techniques and cognitive exercises.",
+                "mediaType": "audio",
+                "mediaFile": "concentration_visualization.mp3"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Breathwork Basics",
+        "description": "Discover the power of conscious breathing to reduce stress, increase energy, and promote relaxation",
+        "author": "Emily Adams",
+        "category": "Breathe",
+        "sessions":[
+            {
+                "sessionNum": 1,
+                "sessionDescription": "Learn fundamental breathing techniques to calm your mind and improve your overall well-being.",
+                "mediaType": "audio",
+                "mediaFile": "conscious_breathing_intro.mp3"
+            },
+            {
+                "sessionNum": 2,
+                "sessionDescription": "Explore different breathwork exercises to release tension and promote deep relaxation.",
+                "mediaType": "audio",
+                "mediaFile": "breathwork_exploration.mp3"
+            }
+        ]
     }
 ]
