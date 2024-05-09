@@ -4,10 +4,7 @@ import { View, Image, StyleSheet } from 'react-native';
 export default function ProfilePicture({ imageUrl }) {
   return (
     <View style={styles.profilePicContainer}>
-      <Image
-        source={{ uri: imageUrl }}
-        style={styles.profilePic}
-      />
+      <Image source={require('../../assets/user_male.png')} style={styles.profilePic}/>
     </View>
   );
 }
