@@ -8,11 +8,13 @@ import CategoryNav from '../elements/CategoryNav'; // Update import path
 import AudioPlayer from '../elements/ProgressBar';
 import SessionHeader from '../elements/SessionHeader';
 import Volume from '../elements/Volume';
+import TopHeader from '../parents/TopHeader';
+import HighlightedSession from '../elements/HighlightedSession';
 
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showElements, setShowElements] = useState(true); // Controle de visibilidade dos elementos
-
+  const dataExemplo = {user: 'Carlos', heading: 'Welcome Back'};
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
@@ -22,33 +24,39 @@ export default function HomePage() {
   };
 
   return (
-    <View style={styles.container}>
-      <CategoryNav onSelectCategory={handleCategorySelect} />
-      {showElements ? (
-        <React.Fragment>
-          <FourSquareButton onPress={() => alert('Botão clicado')} />
-          <ProfilePicture imageUrl='https://storage.googleapis.com/sticker-prod/3BtTZYTk8OZCQ9mA21oX/9.png' />
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={true}
-            contentContainerStyle={styles.scrollContainer}
-          >
-            {meditationData
-              .filter(course => !selectedCategory || course.category === selectedCategory)
-              .map((course, index) => (
-                <MeditationBox key={index} data={course} onPress={toggleElements} />
-              ))}
-          </ScrollView>
-        </React.Fragment>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        {showElements ? (
+          <React.Fragment>
+            <View style={styles.vertScroll}>
+            <TopHeader data={dataExemplo}/>
+            <CategoryNav onSelectCategory={handleCategorySelect} />
+            <HighlightedSession/>
+      </View>
+        
+      <View style={styles.textCont}>
+        <Text style={styles.textL}>Explore Meditations</Text>
+        <Text style={styles.textR}>View All</Text>
+      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.horizontalScrollContainer}
+      >
+        {meditationData
+          .filter(course => !selectedCategory || course.category === selectedCategory)
+          .map((course, index) => (
+            <MeditationBox key={index} data={course} onPress={toggleElements} />
+          ))}
+      </ScrollView>
+      </React.Fragment>
       ) : (
         <React.Fragment>
           <AudioPlayer />
           <SessionHeader />
           <Volume />
-          
         </React.Fragment>
       )}
-    </View>
+    </ScrollView>
   );
   
 }
@@ -62,8 +70,25 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
     padding: 15,
     gap: 10
+  },
+  vertScroll: {
+    alignItems: 'center',
+  },
+  textCont: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  textL: {
+    fontSize: 21,
+    paddingLeft: 20,
+    fontWeight: 'bold',
+    color: '#081E3F'
+  },
+  textR: {
+    fontSize: 15,
+    paddingRight: 20,
+    color: 'rgba(8, 30, 63, 0.5)'
   },
 });
