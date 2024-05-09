@@ -17,8 +17,6 @@ export default function CategoryNav({ onSelectCategory }) {
     onSelectCategory(categories[index].name); // Update the selected category
   };
 
-  console.log("onSelectCategory prop:", onSelectCategory); // Add this line to check
-
   return (
     <ScrollView
       horizontal
