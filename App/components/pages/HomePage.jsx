@@ -7,6 +7,7 @@ import MeditationBox from '../elements/MeditationBox';
 import meditationData from '../../dataFiles/meditationCourses.json';
 import CategoryNav from '../elements/CategoryNav'; // Update import path
 
+import CornerButton from '../elements/CornerButton';
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   

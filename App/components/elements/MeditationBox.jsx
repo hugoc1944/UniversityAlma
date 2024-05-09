@@ -2,7 +2,10 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react'
 
-export default function MeditationBox({ data }) {
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart'
+
+export default function MeditationBox({ data, fav=true }) {
 
     const togglePlayPause = async () => {
         // TODO: Redirect to the session page
@@ -18,13 +21,20 @@ export default function MeditationBox({ data }) {
 
             <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
                 <Text style={{ color: '#fff', fontSize: 16, fontWeight: "bold" }}>{sessions.length} Sessions</Text>
+                
+                {fav && 
+                <TouchableOpacity style={styles.favoriteButton} onPress={togglePlayPause}>
+                    <FontAwesomeIcon icon={faHeart} size={22} color={'#C2A5F7'}/>
+                </TouchableOpacity>}
+
                 <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
                     <Icon
-                        name={'play-arrow'}
-                        size={30}
-                        color="#000000"
-                    />
+                            name={'play-arrow'}
+                            size={30}
+                            color="#000000"
+                        />
                 </TouchableOpacity>
+                
             </View>
             <Image source={require('../../assets/course/course_flower.png')} style={styles.image}></Image>
 
@@ -52,10 +62,18 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     playPauseButton: {
-        width: 30,
-        height: 30,
+        width: 32,
+        height: 32,
         borderRadius: 25,
         backgroundColor: '#ffffff',
+    },
+    favoriteButton: {
+        width: 32,
+        height: 32,
+        borderRadius: 25,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     image: {
         position: 'absolute',
