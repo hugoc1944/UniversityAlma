@@ -9,12 +9,15 @@ const categories = [
   { name: 'Breathe', icon: require('../../assets/categoryNav/breath.png'), iconActive: require('../../assets/categoryNav/breath_active.png') }
 ];
 
-export default function CategoryNav() {
+export default function CategoryNav({ onSelectCategory }) {
   const [activeCategory, setActiveCategory] = useState(null);
 
   const handlePress = (index) => {
     setActiveCategory(index);
+    onSelectCategory(categories[index].name); // Update the selected category
   };
+
+  console.log("onSelectCategory prop:", onSelectCategory); // Add this line to check
 
   return (
     <ScrollView

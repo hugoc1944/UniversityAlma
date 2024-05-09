@@ -1,27 +1,37 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
-
-import Volume from '../elements/Volume';
-
-import AudioPlayer from '../elements/ProgressBar';
-import { StatusBar } from 'expo-status-bar';
-import ProfilePicture from '../elements/ProfilePicture';
+import React, { useState } from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import FourSquareButton from '../elements/CornerButton';
-import CategoryNav from '../elements/CategoryNav';
+import ProfilePicture from '../elements/ProfilePicture';
+import MeditationBox from '../elements/MeditationBox';
+import meditationData from '../../dataFiles/meditationCourses.json';
+import CategoryNav from '../elements/CategoryNav'; // Update import path
+
 export default function HomePage() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
   return (
-    
     <View style={styles.container}>
-    <FourSquareButton onPress={() => alert('Botão clicado')}/>
+      <FourSquareButton onPress={() => alert('Botão clicado')} />
       <ProfilePicture imageUrl='https://storage.googleapis.com/sticker-prod/3BtTZYTk8OZCQ9mA21oX/9.png' />
-
-    <CategoryNav />
-    <AudioPlayer />
-    <StatusBar style="auto" />
-  </View>
-  )
+      <CategoryNav onSelectCategory={handleCategorySelect} />
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={true}
+        contentContainerStyle={styles.scrollContainer}
+      >
+        {meditationData
+          .filter(course => !selectedCategory || course.category === selectedCategory)
+          .map((course, index) => (
+            <MeditationBox key={index} data={course} />
+          ))}
+      </ScrollView>
+    </View>
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -30,32 +40,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  profilePicContainer: {
-    position: 'absolute',
-    right: 20,
-    top: 50,
+  scrollContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    gap: 10
   },
-  profilePic: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  buttonContainer: {
-    position: 'absolute',
-    left: 20,
-    top: 55,
-    width: 40,           // Largura total do container de botões
-    height: 40,          // Altura total do container de botões
-    flexDirection: 'row', // Organiza os botões horizontalmente
-    flexWrap: 'wrap',     // Permite quebra de linha
-    justifyContent: 'space-around', // Espaça uniformemente dentro do container
-    alignItems: 'center', // Centraliza os quadrados verticalmente dentro do container
-  },
-  subButton: {
-    width: 15,            // Largura do sub-botão
-    height: 15,           // Altura do sub-botão
-    backgroundColor: '#C2A5F7', // Cor de fundo do sub-botão
-    borderRadius: 5,
-    margin: 2,            // Espaçamento entre sub-botões
-  }
 });
