@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         borderRadius: 300,
         backgroundColor: '#9BB1FD',
         position: 'relative',
-        bottom: 300,
+        bottom: 400,
+        marginRight: -50,
 
         flexDirection: 'row',
         justifyContent: 'center',

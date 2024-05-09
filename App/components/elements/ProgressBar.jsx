@@ -121,7 +121,6 @@ const AudioPlayer = () => {
 
   return (
     <View style={styles.audioPlayer}>
-      <Text style={styles.trackTitle}>House on Sand</Text>
       <Text style={styles.buffering}>{isBuffering ? '' : ' '}</Text>
       <View style={styles.controls}>
       <Text style={styles.time}>{calculateTime(currentTime)}</Text>
@@ -187,18 +186,23 @@ const AudioPlayer = () => {
 </TouchableOpacity>
 
 
+
       </View>
     </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
   audioPlayer: {
-    padding: 20
+    padding: 20,
+    position: 'absolute',     // Centraliza o conteúdo horizontalmente
+    bottom: '25%',
   },
   trackTitle: {
     fontSize: 18,
-    marginBottom: 10
+    marginBottom: -20,
+    marginLeft: 90,
   },
   timeline: {
     width: '70%',
