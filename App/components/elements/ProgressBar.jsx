@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
   audioPlayer: {
     padding: 20,
     position: 'absolute',     // Centraliza o conteúdo horizontalmente
-    bottom: '25%',
+    bottom: '20%',
+        right:'5%',
   },
   trackTitle: {
     fontSize: 18,

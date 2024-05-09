@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',     // Centraliza o conteúdo horizontalmente
         backgroundColor: '#fff',
-        bottom:'40%'   // Define a cor de fundo como branco
+        bottom:'38%',   // Define a cor de fundo como branco
+        right:'19%',    // Posiciona o componente no canto inferior direito
     },
     slider: {
         width: 250,
@@ -46,6 +47,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between', // Distribui os ícones uniformemente
         width: 60,                      // Largura suficiente para dois ícones
-        marginTop: 20                   // Espaço acima dos ícones
+        marginTop: 0                   // Espaço acima dos ícones
     }
 });
