@@ -16,36 +16,39 @@ export default function HomePage() {
   };
 
   return (
-    <View style={styles.container}>
-      <TopHeader data={dataExemplo}/>
-      <CategoryNav onSelectCategory={handleCategorySelect} />
-      <HighlightedSession/>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.scrollContainer}
-      >
-        {meditationData
-          .filter(course => !selectedCategory || course.category === selectedCategory)
-          .map((course, index) => (
-            <MeditationBox key={index} data={course} />
-          ))}
-      </ScrollView>
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      <View style={styles.vertScroll}>
+        <TopHeader data={dataExemplo}/>
+        <CategoryNav onSelectCategory={handleCategorySelect} />
+        <HighlightedSession/>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.horizontalScrollContainer}
+        >
+          {meditationData
+            .filter(course => !selectedCategory || course.category === selectedCategory)
+            .map((course, index) => (
+              <MeditationBox key={index} data={course} />
+            ))}
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff'
   },
-  scrollContainer: {
+  horizontalScrollContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
     gap: 10
   },
+  vertScroll: {
+    alignItems: 'center',
+  }
 });

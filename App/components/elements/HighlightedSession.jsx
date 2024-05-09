@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#9BB1FD',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 30 
     },
     // temp: {
     //     // position: 'absolute',
