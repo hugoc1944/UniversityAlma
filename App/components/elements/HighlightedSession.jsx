@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react'
 
-export default function HighlightedSession({data}){
+export default function HighlightedSession({onPress}){
 
   const togglePlayPause = async () => {
     onPress();
