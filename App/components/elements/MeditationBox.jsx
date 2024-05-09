@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import React from 'react'
+import React from 'react';
 
 export default function MeditationBox({ data, onPress }) {
 
@@ -13,8 +13,11 @@ export default function MeditationBox({ data, onPress }) {
 
     return (
         <View style={styles.boxShape}>
-            <Text style={styles.cardTitle}>{title}</Text>
-            <Text style={styles.cardContent}>{description}</Text>
+            <View style={styles.titleContainer}>
+                <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>{title}</Text>
+            </View>
+            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardContent}>{typeof description === 'string' ? description : ''}</Text>
+
             <Text style={styles.cardContent}>By: {author}</Text>
 
             <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
@@ -42,10 +45,13 @@ const styles = StyleSheet.create({
         padding: 20,
         overflow: 'hidden'
     },
+    titleContainer: {
+        height: 60, // Adjust the height as needed
+    },
     cardTitle: {
         fontSize: 22,
         color: '#fff',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     cardContent: {
         fontSize: 14,
@@ -67,4 +73,4 @@ const styles = StyleSheet.create({
         transform: [{ rotate: '-42deg' }],
         opacity: 0.5
     },
-})
+});
