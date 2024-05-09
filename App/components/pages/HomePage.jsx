@@ -64,11 +64,9 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff'
   },
-  scrollContainer: {
+  horizontalScrollContainer: {
     flexDirection: 'row',
     padding: 15,
     gap: 10
