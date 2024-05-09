@@ -6,13 +6,13 @@ import Volume from '../elements/Volume';
 import AudioPlayer from '../elements/ProgressBar';
 import { StatusBar } from 'expo-status-bar';
 import ProfilePicture from '../elements/ProfilePicture';
-import FourSquareButton from '../elements/CornerButton';
+import CornerButton from '../elements/CornerButton';
 import CategoryNav from '../elements/CategoryNav';
 export default function HomePage() {
   return (
     
     <View style={styles.container}>
-    <FourSquareButton onPress={() => alert('Botão clicado')}/>
+    <CornerButton onPress={() => alert('Botão clicado')}/>
       <ProfilePicture imageUrl='https://storage.googleapis.com/sticker-prod/3BtTZYTk8OZCQ9mA21oX/9.png' />
 
     <CategoryNav />
