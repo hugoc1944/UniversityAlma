@@ -11,7 +11,7 @@ export default function TopHeader({ data, view }) {
     return (
         <View style={styles.wrapper}>
             <CornerButton />
-            <ProfilePicture imageUrl='https://storage.googleapis.com/sticker-prod/3BtTZYTk8OZCQ9mA21oX/9.png' />
+            <ProfilePicture/>
             <View style={styles.heading}>
                 <Text style={styles.headingText}>{heading}</Text>
                 <Text style={styles.spanText}>{user + "!"}</Text>

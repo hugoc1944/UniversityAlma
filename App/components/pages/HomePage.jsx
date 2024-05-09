@@ -32,7 +32,7 @@ export default function HomePage() {
             <View style={styles.vertScroll}>
             <TopHeader data={dataExemplo}/>
             <CategoryNav onSelectCategory={handleCategorySelect} />
-            <HighlightedSession/>
+            <HighlightedSession key={0}  onPress={toggleElements}/>
       </View>
         
       <View style={styles.textCont}>
