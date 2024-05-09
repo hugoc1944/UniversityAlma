@@ -5,6 +5,7 @@ import React from 'react'
 export default function HighlightedSession({data}){
 
   const togglePlayPause = async () => {
+    onPress();
     // TODO: Redirect to the session page
   };
 
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#9BB1FD',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 30 
     },
     // temp: {
     //     // position: 'absolute',

@@ -6,7 +6,7 @@ const SettingsScreen = () => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <View style={styles.section1}>
         <Text style={styles.header1}>Settings</Text>
       </View>

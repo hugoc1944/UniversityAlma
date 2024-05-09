@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#9BB1FD',
         position: 'relative',
         bottom: 300,
+        marginRight: -0,
 
         flexDirection: 'row',
         justifyContent: 'center',
