@@ -2,9 +2,10 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 
-export default function MeditationBox({ data }) {
+export default function MeditationBox({ data, onPress }) {
 
     const togglePlayPause = async () => {
+        onPress(); // Chama a função passada por propriedade para alternar a visibilidade dos componentes
         // TODO: Redirect to the session page
     }
 
@@ -30,7 +31,6 @@ export default function MeditationBox({ data }) {
                 </TouchableOpacity>
             </View>
             <Image source={require('../../assets/course/course_flower.png')} style={styles.image}></Image>
-
         </View>
     )
 }

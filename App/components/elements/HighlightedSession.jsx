@@ -5,6 +5,7 @@ import React from 'react'
 export default function HighlightedSession({data}){
 
   const togglePlayPause = async () => {
+    onPress();
     // TODO: Redirect to the session page
   };
 
