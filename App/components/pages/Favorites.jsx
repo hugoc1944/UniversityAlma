@@ -1,15 +1,42 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import  {React, useState, useEffect} from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import MeditationBox from '../elements/MeditationBox';
+import { readFromJsonFile, initializeFavoritesJson } from '../../fileUtils'
 
-import Session from '../parents/Session'
-import TopHeader from '../parents/TopHeader'
-import MeditationBox from '../elements/MeditationBox'
 export default function Favorites() {
-  
-  const meditations = require('../../dataFiles/meditationCourses.json'); 
+  const [favoriteIds, setFavoriteIds] = useState([]);
+  const [meditations, setMeditations] = useState([]);
 
-  const groupedMeditations = favoriteMeditations.reduce((acc, meditation) =>{
-    if(!acc[meditation.category]){
+  useEffect(() => {
+    async function fetchData() {
+      await initializeFavoritesJson();
+
+      // Read favorites from JSON file
+      try {
+        const favorites = await readFromJsonFile('favorites.json');
+        setFavoriteIds(favorites);
+      } catch (error) {
+        console.error('Error reading favorites:', error);
+      }
+
+      // Assuming meditationCourses.json is a JSON array
+      try {
+        const meditationCourses = require('../../dataFiles/meditationCourses.json');
+        setMeditations(meditationCourses);
+      } catch (error) {
+        console.error('Error loading meditation courses:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const favoriteMeditations = meditations.filter(meditation =>
+    favoriteIds.some(favorite => meditation.id === favorite.id)
+  );
+
+  const groupedMeditations = favoriteMeditations.reduce((acc, meditation) => {
+    if (!acc[meditation.category]) {
       acc[meditation.category] = [];
     }
     acc[meditation.category].push(meditation);
@@ -18,23 +45,9 @@ export default function Favorites() {
 
   return (
     <View>
-      <TopHeader data={{user: "Carlos", heading: "Your Favourites"}}/>
-      
-      {Object.entries(groupedMeditations).map(([category, meditations]) => (
-        <View key={category} style={styles.container}>
-          <Text style={styles.categoryText}>{category} Meditations</Text>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={true}
-            contentContainerStyle={styles.scrollContainer}>
-              {meditations.map(meditation => (
-                  <MeditationBox data={meditation} fav={true}/>
-              ))}
-          </ScrollView>
-        </View>
-      ))}
+      {/* Your JSX code */}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
