@@ -2,10 +2,19 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import MeditationBox from '../elements/MeditationBox';
 import { readFromJsonFile, initializeFavoritesJson } from '../../fileUtils'
+import AudioPlayer from '../elements/ProgressBar';
+import SessionHeader from '../elements/SessionHeader';
+import Volume from '../elements/Volume';
+import Back from '../elements/Back';
 
 export default function Favorites() {
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [meditations, setMeditations] = useState([]);
+  const [showElements, setShowElements] = useState(true); // Controle de visibilidade dos elementos
+
+  const toggleElements = () => {
+    setShowElements(!showElements); // Alterna a visibilidade dos elementos
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -44,10 +53,34 @@ export default function Favorites() {
   }, {});
 
   return (
-    <View>
-      {/* Your JSX code */}
+    <View style={styles.container}>
+      {showElements ? (
+          <React.Fragment>
+      {Object.entries(groupedMeditations).map(([category, meditations]) => (
+        <View key={category} style={styles.wrapper}>
+          <Text style={styles.categoryText}>{category}</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
+            {meditations.map((meditation, index) => (
+              <MeditationBox 
+              key={index} 
+              data={meditation} 
+              onPress={toggleElements} 
+              onPlay={() => console.log("Play button clicked for course", course.id)}/>
+          ))}
+          </ScrollView>
+        </View>
+      ))}</React.Fragment>
+      ) : (
+        <React.Fragment>
+          <AudioPlayer />
+          <SessionHeader />
+          <Volume />
+          <Back onPress={toggleElements} />
+        </React.Fragment>
+      )}
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
