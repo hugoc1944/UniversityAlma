@@ -6,12 +6,7 @@ import TopHeader from '../parents/TopHeader'
 import MeditationBox from '../elements/MeditationBox'
 export default function Favorites() {
   
-  const favoriteIds = require('../../assets/favorites.json');
   const meditations = require('../../dataFiles/meditationCourses.json'); 
-  
-  const favoriteMeditations = meditations.filter(meditation => {
-    return favoriteIds.some(favorite => meditation.id === favorite.id);
-  });
 
   const groupedMeditations = favoriteMeditations.reduce((acc, meditation) =>{
     if(!acc[meditation.category]){
