@@ -6,6 +6,7 @@ import AudioPlayer from '../elements/ProgressBar';
 import SessionHeader from '../elements/SessionHeader';
 import Volume from '../elements/Volume';
 import Back from '../elements/Back';
+import TopHeader from '../parents/TopHeader';
 
 export default function Favorites() {
   const [favoriteIds, setFavoriteIds] = useState([]);
@@ -55,21 +56,30 @@ export default function Favorites() {
   return (
     <View style={styles.container}>
       {showElements ? (
-          <React.Fragment>
+      <React.Fragment>
+        <TopHeader data={{user: "Carlos", heading: "Your Favourites"}}/>
+      
       {Object.entries(groupedMeditations).map(([category, meditations]) => (
-        <View key={category} style={styles.wrapper}>
-          <Text style={styles.categoryText}>{category}</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-            {meditations.map((meditation, index) => (
-              <MeditationBox 
-              key={index} 
-              data={meditation} 
-              onPress={toggleElements} 
-              onPlay={() => console.log("Play button clicked for course", course.id)}/>
-          ))}
-          </ScrollView>
+        <View key={category} style={styles.container}>
+          <Text style={styles.categoryText}>{category} Meditations</Text>
+          <ScrollView
+  horizontal
+  showsHorizontalScrollIndicator={true}
+  contentContainerStyle={styles.scrollContainer}>
+  {meditations.map((meditation, index) => (
+    <MeditationBox
+      key={meditation.id} // Assigning a unique key using the meditation's ID
+      data={meditation}
+      fav={true}
+      onPress={toggleElements} 
+      onPlay={() => console.log("Play button clicked for course", meditation.id)}
+    />
+  ))}
+</ScrollView>
+
         </View>
-      ))}</React.Fragment>
+      ))}
+      </React.Fragment>
       ) : (
         <React.Fragment>
           <AudioPlayer />
