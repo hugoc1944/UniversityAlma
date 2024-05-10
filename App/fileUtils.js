@@ -33,19 +33,11 @@ export const checkFileExists = async (fileName) => {
   }
 };
 
+// Function to ensure favorites.json exists and is initialized
 export const initializeFavoritesJson = async () => {
   const filePath = `${FileSystem.documentDirectory}favorites.json`;
   const fileExists = await FileSystem.getInfoAsync(filePath).then(info => info.exists);
-
   if (!fileExists) {
-    try {
-      const asset = Asset.fromModule(require('./initialFavorites.json'));
-      await asset.downloadAsync();
-      const initialData = await FileSystem.readAsStringAsync(asset.localUri);
-
-      await FileSystem.writeAsStringAsync(filePath, initialData);
-    } catch (error) {
-      console.error('Error setting up initial favorites:', error);
-    }
+    await FileSystem.writeAsStringAsync(filePath, JSON.stringify([])); // Assuming it starts as an empty array
   }
 };

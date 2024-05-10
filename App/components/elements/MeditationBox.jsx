@@ -36,7 +36,7 @@ export default function MeditationBox({ data, fav=true, onPress }) {
 
     const { id, title, description, author, sessions } = data;
 
-    const favoriteIds1 = require('../../assets/initialFavorites.json');
+    const favoriteIds1 = require('../../assets/favorites.json');
 
     const handleButtonClick = async (id) => {
         let updatedIds = [...favoriteIds];
