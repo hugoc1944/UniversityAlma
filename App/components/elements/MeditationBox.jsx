@@ -37,19 +37,28 @@ export default function MeditationBox({ data, fav=true, onPress }) {
     const addFav = async (idToAdd) => {
         try {
           await initializeFavoritesJson();
-          const currentFavorites = await readFromJsonFile('favorites.json');
-          if (currentFavorites.some(favorite => favorite.id === idToAdd)) {
-            console.log("Meditation already exists in favorites.");
+          let currentFavorites = await readFromJsonFile('favorites.json');
+          
+          // Check if the meditation already exists in favorites
+          const existingIndex = currentFavorites.findIndex(favorite => favorite.id === idToAdd);
+          if (existingIndex !== -1) {
+            // Remove the meditation from favorites
+            currentFavorites.splice(existingIndex, 1);
+            await writeToJsonFile(currentFavorites, 'favorites.json');
+            console.log("Meditation removed from favorites.");
             return;
           }
+          
+          // Add the meditation to favorites
           const newFavorite = { id: idToAdd };
-          const updatedFavorites = [...currentFavorites, newFavorite];
-          await writeToJsonFile(updatedFavorites, 'favorites.json');
+          currentFavorites.push(newFavorite);
+          await writeToJsonFile(currentFavorites, 'favorites.json');
           console.log("Meditation added to favorites.");
         } catch (error) {
-          console.error("Error adding favorite:", error);
+          console.error("Error updating favorites:", error);
         }
-      };
+    };
+    
 
     const { id, title, description, author, sessions } = data;
 
