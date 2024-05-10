@@ -9,7 +9,7 @@ export default function Favorites() {
 
   useEffect(() => {
     async function fetchData() {
-      await initializeFavoritesJson();
+      await initializeFavoritesJson(); // Ensure favorites.json exists and initialized
 
       // Read favorites from JSON file
       try {

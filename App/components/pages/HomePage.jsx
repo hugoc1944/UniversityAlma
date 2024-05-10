@@ -53,7 +53,11 @@ export default function HomePage() {
         {meditationData
           .filter(course => !selectedCategory || course.category === selectedCategory)
           .map((course, index) => (
-            <MeditationBox key={index} data={course} onPress={toggleElements} />
+            <MeditationBox 
+              key={index} 
+              data={course} 
+              onPress={toggleElements} 
+              onPlay={() => console.log("Play button clicked for course", course.id)}/>
           ))}
       </ScrollView>
       </React.Fragment>
