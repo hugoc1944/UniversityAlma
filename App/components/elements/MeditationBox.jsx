@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {React, useState, useEffect} from 'react';
 
-import {writeToJsonFile, readFromJsonFile} from '../../fileUtils'
+import {writeToJsonFile, readFromJsonFile, checkFileExists} from '../../fileUtils'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart'
 
@@ -15,7 +15,14 @@ export default function MeditationBox({ data, fav=true, onPress }) {
     }, []);
     const readFavoriteIds = async () => {
         try{
-            const data = await readFromJsonFile('../../dataFiles/favorites.json');
+            checkFileExists('favorites.json').then(exists => {
+                if (!exists){
+                    console.log('favorites.json exists:', exists);
+                }
+              }).catch(error => {
+                console.error('Error checking file existence:', error);
+              });
+            const data = await readFromJsonFile('favorites.json');
             setFavoriteIds(data);
         } catch (error){
             console.error('Error reading JSON file:', error);
@@ -29,7 +36,7 @@ export default function MeditationBox({ data, fav=true, onPress }) {
 
     const { id, title, description, author, sessions } = data;
 
-    const favoriteIds1 = require('../../dataFiles/favorites.json');
+    const favoriteIds1 = require('../../assets/initialFavorites.json');
 
     const handleButtonClick = async (id) => {
         let updatedIds = [...favoriteIds];
@@ -49,9 +56,9 @@ export default function MeditationBox({ data, fav=true, onPress }) {
 
         //Escrever IDs atualizados para o ficheiro JSON
         try{
-            await writeToJsonFile(updatedIds, '../../dataFiles/favorites.json');
+            await writeToJsonFile(updatedIds, 'favorites.json');
         } catch (error){
-            console.error(error);
+            console.error('Error writing to JSON file: ', error);
         }
     };
     return (

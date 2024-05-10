@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import FourSquareButton from '../elements/CornerButton';
 import ProfilePicture from '../elements/ProfilePicture';
@@ -11,9 +11,15 @@ import Volume from '../elements/Volume';
 import TopHeader from '../parents/TopHeader';
 import HighlightedSession from '../elements/HighlightedSession';
 import Back from '../elements/Back';
+import { initializeFavoritesJson } from '../../fileUtils';
 
 import CornerButton from '../elements/CornerButton';
 export default function HomePage() {
+
+  useEffect(() => {
+    initializeFavoritesJson();
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showElements, setShowElements] = useState(true); // Controle de visibilidade dos elementos
   const dataExemplo = {user: 'Carlos', heading: 'Welcome Back'};
