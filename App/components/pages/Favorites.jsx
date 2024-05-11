@@ -74,7 +74,7 @@ export default function Favorites() {
             <Text style={styles.categoryText}>{category} Meditations</Text>
             <ScrollView
               horizontal
-              showsHorizontalScrollIndicator={true}
+              showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.horizontalScrollContainer}
             >
               {meditations
