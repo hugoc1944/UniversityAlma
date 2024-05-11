@@ -6,7 +6,7 @@ import {writeToJsonFile, readFromJsonFile, checkFileExists, initializeFavoritesJ
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart'
 
-export default function MeditationBox({ data, fav=true, onPress }) {
+export default function MeditationBox({ data, fav=true, onPlay }) {
 
     const [favoriteIds, setFavoriteIds] = useState([]);
 
@@ -29,8 +29,8 @@ export default function MeditationBox({ data, fav=true, onPress }) {
         }
     };
 
-    const togglePlayPause = () => {
-        onPress(); // Chama a função passada por propriedade para alternar a visibilidade dos componentes
+    const togglePlayPause = () => { // Chama a função passada por propriedade para alternar a visibilidade dos componentes
+        onPlay();
         // TODO: Redirect to the session page
     }
 

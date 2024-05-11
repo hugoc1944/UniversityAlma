@@ -13,8 +13,9 @@ import TopHeader from '../parents/TopHeader';
 import HighlightedSession from '../elements/HighlightedSession';
 import Back from '../elements/Back';
 import { initializeFavoritesJson } from '../../fileUtils';
+import CoursePage from './CoursePage';
 
-export default function HomePage() {
+export default function HomePage({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showElements, setShowElements] = useState(true);
   const [selectedMeditation, setSelectedMeditation] = useState(null);
@@ -32,15 +33,8 @@ export default function HomePage() {
     setShowElements(!showElements);
   };
 
-  const handleMeditationSelect = (meditation) => {
-    setSelectedMeditation(meditation);
-    toggleElements();
-  };
-
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      {showElements ? (
-        <React.Fragment>
           <View style={styles.vertScroll}>
             <TopHeader data={dataExemplo}/>
             <CategoryNav onSelectCategory={handleCategorySelect} />
@@ -59,23 +53,13 @@ export default function HomePage() {
               .filter(course => !selectedCategory || course.category === selectedCategory)
               .map((course, index) => (
                 <MeditationBox 
-                  key={index} 
-                  data={course} 
-                  onPress={() => handleMeditationSelect(course)} 
-                  onPlay={() => console.log("Play button clicked for course", course.id)}
-                />
+    key={index} 
+    data={course}
+    onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: course })}
+/>
+
               ))}
           </ScrollView>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <AudioPlayer />
-          <SessionHeader />
-          <Volume />
-          <Back onPress={toggleElements} />
-          {selectedMeditation && <TextDetails data={selectedMeditation} />}
-        </React.Fragment>
-      )}
     </ScrollView>
   );
 }

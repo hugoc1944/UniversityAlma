@@ -7,8 +7,9 @@ import SessionHeader from '../elements/SessionHeader';
 import Volume from '../elements/Volume';
 import Back from '../elements/Back';
 import TopHeader from '../parents/TopHeader';
+import CoursePage from './CoursePage';
 
-export default function Favorites() {
+export default function Favorites({ navigation }) {
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [meditations, setMeditations] = useState([]);
   const [showElements, setShowElements] = useState(true); // Controle de visibilidade dos elementos
@@ -62,8 +63,6 @@ export default function Favorites() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-  {showElements ? (
-    <React.Fragment>
       <TopHeader data={{ user: "Carlos", heading: "Your Favourites" }} />
       
       {Object.entries(groupedMeditations)
@@ -80,27 +79,16 @@ export default function Favorites() {
               {meditations
                 .filter(meditation => favoriteIds.some(fav => fav.id === meditation.id))
                 .map((meditation) => (
-                  <MeditationBox
-                    key={meditation.id}
-                    data={meditation}
-                    fav={true}
-                    onPress={toggleElements}
-                    onPlay={() => console.log("Play button clicked for course", meditation.id)}
-                  />
+                  <MeditationBox 
+                  key={meditation.id} 
+                  data={meditation} 
+                  onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: meditation })}
+              />
               ))}
             </ScrollView>
           </View>
         ))
       }
-    </React.Fragment>
-  ) : (
-    <React.Fragment>
-      <AudioPlayer />
-      <SessionHeader />
-      <Volume />
-      <Back onPress={toggleElements} />
-    </React.Fragment>
-  )}
 </ScrollView>)
 
   
