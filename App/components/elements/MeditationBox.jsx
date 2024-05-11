@@ -61,30 +61,6 @@ export default function MeditationBox({ data, fav=true, onPress }) {
     
 
     const { id, title, description, author, sessions } = data;
-
-    const handleButtonClick = async (id) => {
-        let updatedIds = [...favoriteIds];
-    
-        // Verificar se ID já existe no ficheiro JSON
-        const index = updatedIds.findIndex(item => item.id === id);
-    
-        // Se existir, remover do ficheiro, senão, adicionar
-        if (index !== -1){
-            updatedIds.splice(index, 1);
-        } else {
-            updatedIds.push({ id }); // Fix typo here
-        }
-    
-        // Update ao estado
-        setFavoriteIds(updatedIds);
-    
-        // Escrever IDs atualizados para o ficheiro JSON
-        try{
-            await writeToJsonFile(updatedIds, 'favorites.json');
-        } catch (error){
-            console.error('Error writing to JSON file: ', error);
-        }
-    };
     
     return (
         <View style={styles.boxShape}>
