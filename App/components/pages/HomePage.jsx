@@ -7,71 +7,77 @@ import meditationData from '../../dataFiles/meditationCourses.json';
 import CategoryNav from '../elements/CategoryNav'; // Update import path
 import AudioPlayer from '../elements/ProgressBar';
 import SessionHeader from '../elements/SessionHeader';
+import TextDetails from '../elements/Text';
 import Volume from '../elements/Volume';
 import TopHeader from '../parents/TopHeader';
 import HighlightedSession from '../elements/HighlightedSession';
 import Back from '../elements/Back';
 import { initializeFavoritesJson } from '../../fileUtils';
 
-import CornerButton from '../elements/CornerButton';
 export default function HomePage() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showElements, setShowElements] = useState(true);
+  const [selectedMeditation, setSelectedMeditation] = useState(null);
+  const dataExemplo = {user: 'Carlos', heading: 'Welcome Back'};
 
   useEffect(() => {
     initializeFavoritesJson();
   }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [showElements, setShowElements] = useState(true); // Controle de visibilidade dos elementos
-  const dataExemplo = {user: 'Carlos', heading: 'Welcome Back'};
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
   const toggleElements = () => {
-    setShowElements(!showElements); // Alterna a visibilidade dos elementos
+    setShowElements(!showElements);
+  };
+
+  const handleMeditationSelect = (meditation) => {
+    setSelectedMeditation(meditation);
+    toggleElements();
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        {showElements ? (
-          <React.Fragment>
-            <View style={styles.vertScroll}>
+      {showElements ? (
+        <React.Fragment>
+          <View style={styles.vertScroll}>
             <TopHeader data={dataExemplo}/>
             <CategoryNav onSelectCategory={handleCategorySelect} />
-            <HighlightedSession key={0}  onPress={toggleElements}/>
-      </View>
-        
-      <View style={styles.textCont}>
-        <Text style={styles.textL}>Explore Meditations</Text>
-        <Text style={styles.textR}>View All</Text>
-      </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.horizontalScrollContainer}
-      >
-        {meditationData
-          .filter(course => !selectedCategory || course.category === selectedCategory)
-          .map((course, index) => (
-            <MeditationBox 
-              key={index} 
-              data={course} 
-              onPress={toggleElements} 
-              onPlay={() => console.log("Play button clicked for course", course.id)}/>
-          ))}
-      </ScrollView>
-      </React.Fragment>
+            <HighlightedSession key={0} onPress={toggleElements}/>
+          </View>
+          <View style={styles.textCont}>
+            <Text style={styles.textL}>Explore Meditations</Text>
+            <Text style={styles.textR}>View All</Text>
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.horizontalScrollContainer}
+          >
+            {meditationData
+              .filter(course => !selectedCategory || course.category === selectedCategory)
+              .map((course, index) => (
+                <MeditationBox 
+                  key={index} 
+                  data={course} 
+                  onPress={() => handleMeditationSelect(course)} 
+                  onPlay={() => console.log("Play button clicked for course", course.id)}
+                />
+              ))}
+          </ScrollView>
+        </React.Fragment>
       ) : (
         <React.Fragment>
           <AudioPlayer />
           <SessionHeader />
           <Volume />
           <Back onPress={toggleElements} />
+          {selectedMeditation && <TextDetails data={selectedMeditation} />}
         </React.Fragment>
       )}
     </ScrollView>
   );
-  
 }
 
 const styles = StyleSheet.create({

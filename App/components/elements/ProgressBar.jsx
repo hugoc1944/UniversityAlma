@@ -171,8 +171,6 @@ const AudioPlayer = () => {
   <TouchableOpacity style={styles.skipButton} onPress={skipForward}>
     <Icon
       name="fast-forward"
-      marginRight={10}
-      marginLeft={10}
       size={36}
       color="#9BB1FD"
     />
@@ -197,12 +195,12 @@ const styles = StyleSheet.create({
   audioPlayer: {
     padding: 20,
     position: 'absolute',     // Centraliza o conteúdo horizontalmente
-    bottom: '20%',
-        right:'5%',
+    bottom: '35%',
+        right:'6%',
   },
   trackTitle: {
     fontSize: 18,
-    marginBottom: -20,
+    marginBottom: 0,
     marginLeft: 90,
   },
   timeline: {

@@ -75,6 +75,13 @@ const CurvedSlider = () => {
           fill="#9BB1FD"
           {...panResponder.panHandlers}
         />
+        <Circle
+          cx={thumbPosition.x}
+          cy={thumbPosition.y}
+          r="40"
+          fill="rgba(155,177,253,0)"
+          {...panResponder.panHandlers}
+        />
       </Svg>
       <View style={styles.volumeIcon}>
         <FontAwesomeIcon icon={faVolumeXmark} size={21} color={'rgb(155,177,253)'} />
@@ -87,7 +94,7 @@ const CurvedSlider = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute', // Use absolute positioning
-    top: 130,  // Adjust the top position
+    top: 150,  // Adjust the top position
     left:45,  // Adjust the left position
     justifyContent: 'center',
     alignItems: 'center',
