@@ -1,56 +1,17 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import MeditationBox from '../elements/MeditationBox';
-import { readFromJsonFile, initializeFavoritesJson } from '../../fileUtils'
-import AudioPlayer from '../elements/ProgressBar';
-import SessionHeader from '../elements/SessionHeader';
-import Volume from '../elements/Volume';
-import Back from '../elements/Back';
 import TopHeader from '../parents/TopHeader';
-import CoursePage from './CoursePage';
+import { useFavorites } from '../../contexts/FavoritesContext';
+import fullMeditationData from '../../dataFiles/meditationCourses.json';
 
 export default function Favorites({ navigation }) {
-  const [favoriteIds, setFavoriteIds] = useState([]);
-  const [meditations, setMeditations] = useState([]);
-  const [showElements, setShowElements] = useState(true); // Controle de visibilidade dos elementos
+  const { favorites } = useFavorites();
+  const dataExemplo = { user: 'Carlos', heading: 'Your Favorites' };
 
-  const toggleElements = () => {
-    setShowElements(!showElements); // Alterna a visibilidade dos elementos
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      await initializeFavoritesJson(); // Ensure favorites.json exists and initialized
-  
-      // Read favorites from JSON file
-      try {
-        const favorites = await readFromJsonFile('favorites.json');
-        setFavoriteIds(favorites);
-      } catch (error) {
-        console.error('Error reading favorites:', error);
-      }
-  
-      // Assuming meditationCourses.json is a JSON array
-      try {
-        const meditationCourses = require('../../dataFiles/meditationCourses.json');
-        setMeditations(meditationCourses);
-      } catch (error) {
-        console.error('Error loading meditation courses:', error);
-      }
-    }
-  
-    fetchData();
-  
-    // Listen for changes in the JSON file and update the component
-    const intervalId = setInterval(fetchData, 5000); // Check every 5 seconds (adjust as needed)
-  
-    // Cleanup function to clear the interval
-    return () => clearInterval(intervalId);
-  }, []);
-  
-
-  const favoriteMeditations = meditations.filter(meditation =>
-    favoriteIds.some(favorite => meditation.id === favorite.id)
+  // Filter full meditation data to include only favorites
+  const favoriteMeditations = fullMeditationData.filter(meditation =>
+    favorites.some(fav => fav.id === meditation.id)
   );
 
   const groupedMeditations = favoriteMeditations.reduce((acc, meditation) => {
@@ -67,25 +28,25 @@ export default function Favorites({ navigation }) {
       
       {Object.entries(groupedMeditations)
         .filter(([category, meditations]) => 
-          meditations.some(meditation => favoriteIds.some(fav => fav.id === meditation.id)))
+          meditations.some(meditation => favorites.some(fav => fav.id === meditation.id)))
         .map(([category, meditations]) => (
           <View key={category} style={styles.container}>
             <Text style={styles.categoryText}>{category} Meditations</Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.horizontalScrollContainer}
-            >
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.horizontalScrollContainer}
+          >
               {meditations
-                .filter(meditation => favoriteIds.some(fav => fav.id === meditation.id))
+                .filter(meditation => favorites.some(fav => fav.id === meditation.id))
                 .map((meditation) => (
-                  <MeditationBox 
-                  key={meditation.id} 
-                  data={meditation} 
-                  onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: meditation })}
+              <MeditationBox 
+              key={meditation.id}
+                data={meditation}
+                onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: meditation })}
               />
-              ))}
-            </ScrollView>
+            ))}
+          </ScrollView>
           </View>
         ))
       }
@@ -114,7 +75,5 @@ const styles = StyleSheet.create({
     color: '#081E3F',
     paddingHorizontal: 20,
     paddingTop: 5
-    
   }
-
-})
+});

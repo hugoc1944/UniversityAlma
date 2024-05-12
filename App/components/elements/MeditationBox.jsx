@@ -1,98 +1,51 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {React, useState, useEffect} from 'react';
+import { useFavorites } from '../../contexts/FavoritesContext';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 
-import {writeToJsonFile, readFromJsonFile, checkFileExists, initializeFavoritesJson} from '../../fileUtils'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart'
+export default function MeditationBox({ data, onPlay }) {
+    const { favorites, addFavorite, removeFavorite } = useFavorites();
+    const isFavorite = favorites.some(fav => fav.id === data.id);
 
-export default function MeditationBox({ data, fav=true, onPlay }) {
-
-    const [favoriteIds, setFavoriteIds] = useState([]);
-
-    useEffect(() => {
-        readFavoriteIds();
-    }, []);
-    const readFavoriteIds = async () => {
-        try{
-            checkFileExists('favorites.json').then(exists => {
-                if (!exists){
-                    console.log('favorites.json exists:', exists);
-                }
-              }).catch(error => {
-                console.error('Error checking file existence:', error);
-              });
-            const data = await readFromJsonFile('favorites.json');
-            setFavoriteIds(data);
-        } catch (error){
-            console.error('Error reading JSON file:', error);
+    const toggleFavorite = () => {
+        if (isFavorite) {
+            removeFavorite(data.id);
+        } else {
+            addFavorite(data.id);
         }
     };
 
-    const togglePlayPause = () => { // Chama a função passada por propriedade para alternar a visibilidade dos componentes
-        onPlay();
-        // TODO: Redirect to the session page
-    }
-
-    const addFav = async (idToAdd) => {
-        try {
-          await initializeFavoritesJson();
-          let currentFavorites = await readFromJsonFile('favorites.json');
-          
-          // Check if the meditation already exists in favorites
-          const existingIndex = currentFavorites.findIndex(favorite => favorite.id === idToAdd);
-          if (existingIndex !== -1) {
-            // Remove the meditation from favorites
-            currentFavorites.splice(existingIndex, 1);
-            await writeToJsonFile(currentFavorites, 'favorites.json');
-            console.log("Meditation removed from favorites.");
-            return;
-          }
-          
-          // Add the meditation to favorites
-          const newFavorite = { id: idToAdd };
-          currentFavorites.push(newFavorite);
-          await writeToJsonFile(currentFavorites, 'favorites.json');
-          console.log("Meditation added to favorites.");
-        } catch (error) {
-          console.error("Error updating favorites:", error);
-        }
-    };
-    
-
-    const { id, title, description, author, sessions } = data;
-    
     return (
         <View style={styles.boxShape}>
             <View style={styles.titleContainer}>
-                <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardTitle}>{title}</Text>
+                <Text numberOfLines={2} ellipizeMode="tail" style={styles.cardTitle}>{data.title}</Text>
             </View>
-            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardContent}>{typeof description === 'string' ? description : ''}</Text>
-
-            <Text style={styles.cardContent}>By: {author}</Text>
+            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardContent}>{typeof data.description === 'string' ? data.description : ''}</Text>
+            <Text style={styles.cardContent}>By: {data.author}</Text>
 
             <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
-                <Text style={{ color: '#fff', fontSize: 16, fontWeight: "bold" }}>{sessions.length} Sessions</Text>
+                <Text style={{ color: '#fff', fontSize: 16, fontWeight: "bold" }}>{data.sessions.length} Sessions</Text>
                 
                 <TouchableOpacity 
                     style={styles.favoriteButton} 
-                    onPress={() => addFav(id)}
+                    onPress={toggleFavorite}
                 >
-                    <FontAwesomeIcon icon={faHeart} size={22} color={'#C2A5F7'}/>
+                    <FontAwesomeIcon icon={faHeart} size={22} color={isFavorite ? '#C2A5F7' : '#fff'}/>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
-    <Icon
-        name={'play-arrow'}
-        size={30}
-        color="#000000"
-    />
-</TouchableOpacity>
-
+                <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>
+                    <Icon
+                        name={'play-arrow'}
+                        size={30}
+                        color="#000000"
+                    />
+                </TouchableOpacity>
             </View>
             <Image source={require('../../assets/course/course_flower.png')} style={styles.image}></Image>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
