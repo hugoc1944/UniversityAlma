@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { Audio } from 'expo-av';
 import Slider from '@react-native-community/slider';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 
 const AudioPlayer = () => {
   const [sound, setSound] = useState(null);
@@ -14,9 +13,7 @@ const AudioPlayer = () => {
 
   useEffect(() => {
     loadAudio();
-    return () => {
-      sound?.unloadAsync();
-    };
+    return () => sound?.unloadAsync();
   }, []);
 
   const loadAudio = async () => {
@@ -41,14 +38,8 @@ const AudioPlayer = () => {
   };
 
   const togglePlayPause = async () => {
-    if (!sound) {
-      return;
-    }
-    if (isPlaying) {
-      await sound.pauseAsync();
-    } else {
-      await sound.playAsync();
-    }
+    if (!sound) return;
+    isPlaying ? await sound.pauseAsync() : await sound.playAsync();
     setIsPlaying(!isPlaying);
   };
 
@@ -119,32 +110,51 @@ const AudioPlayer = () => {
     return `${minutes}:${returnedSeconds}`;
   };
 
+  const progressBarImage = require('../../assets/course/full_wave.png');
+  const playedWidth = `${(currentTime / duration) * 100}%`;
+
   return (
     <View style={styles.audioPlayer}>
       <Text style={styles.buffering}>{isBuffering ? '' : ' '}</Text>
       <View style={styles.controls}>
       <Text style={styles.time}>{calculateTime(currentTime)}</Text>
 
-      <Slider
-        style={styles.timeline}
-        value={currentTime}
-        minimumValue={0}
-        maximumValue={duration}
-        onValueChange={onSliderValueChange}
-        onSlidingStart={onSlidingStart}
-        onSlidingComplete={onSlidingComplete}
-        minimumTrackTintColor="#9BB1FD"
-        maximumTrackTintColor="rgba(8,30,63,0.1)"
-        thumbTintColor="#9BB1FD"
-        trackHeight={4}
-      />
+      <View style={styles.progressContainer}>
+          <ImageBackground
+            source={progressBarImage}
+            resizeMode="cover"
+            style={styles.imageBackgroundStyle}
+            imageStyle={{ opacity: 0.3 }}
+            pointerEvents="none"
+          />
+          <View style={[styles.progressMask, { width: playedWidth}]} pointerEvents="none">
+            <ImageBackground
+              source={progressBarImage}
+              resizeMode="cover"
+              style={[styles.imageBackgroundStyle]}
+              imageStyle={{ opacity: 1}}
+              pointerEvents="none"
+            />
+          </View>
+          <Slider
+            style={styles.timeline}
+            value={currentTime}
+            minimumValue={0}
+            maximumValue={duration}
+            onValueChange={onSliderValueChange}
+            onSlidingStart={onSlidingStart}
+            onSlidingComplete={onSlidingComplete}
+            minimumTrackTintColor="#9BB1FD"
+            maximumTrackTintColor="rgba(8,30,63,0.1)"
+            thumbTintColor="#9BB1FD"
+            trackHeight={4}
+          />
+        </View>
       <Text style={styles.time}>{calculateTime(duration)}</Text>
 
       </View>
-
-
-      <View style={styles.controls}>
-      <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
+        <View style={styles.controls}>
+          <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
     <Icon
       name="favorite-border"
       size={36}
@@ -181,7 +191,7 @@ const AudioPlayer = () => {
     size={36}
     color="#9BB1FD"
   />
-</TouchableOpacity>
+          </TouchableOpacity>
 
 
 
@@ -194,9 +204,10 @@ const AudioPlayer = () => {
 const styles = StyleSheet.create({
   audioPlayer: {
     padding: 20,
-    position: 'absolute',     // Centraliza o conteúdo horizontalmente
+    position: 'absolute',
     bottom: '35%',
-        right:'6%',
+    width: '100%',
+    alignItems: 'center',  // Ensure alignment is centered for the whole player
   },
   trackTitle: {
     fontSize: 18,
@@ -204,14 +215,38 @@ const styles = StyleSheet.create({
     marginLeft: 90,
   },
   timeline: {
-    width: '70%',
-    height: 20
+    position: 'absolute',  // This will take it out of the normal flow
+    top: 10,  // Adjust top position to align it properly
+    left: 0,
+    right: 0,
+    height: 20,
+    opacity: 0
   },
   controls: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 12
+    marginTop: 12,
+    width: '100%',
+  },
+  progressContainer: {
+    height: 50,
+    position: 'relative',
+    left: 0,
+    overflow: 'hidden',  // Optional: Center vertically if top is set
+  },
+  
+
+  imageBackgroundStyle: {
+    flex: 1,  // Fill the area of the mask
+    width: 260,  // Set width as needed
+    height: '100%',  // Fill vertically
+  },
+  progressMask: {
+    height: '100%',
+    width: 260,  // Take full width of the container
+    position: 'absolute',
+    overflow: 'hidden',
   },
   playPauseButton: {
     justifyContent: 'center',
