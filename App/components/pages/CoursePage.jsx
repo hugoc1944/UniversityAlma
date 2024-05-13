@@ -11,13 +11,11 @@ const CoursePage = ({ route, navigation }) => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <React.Fragment>
         <AudioPlayer />
         <SessionHeader />
         <Volume />
         <Back onPress={() => navigation.goBack()} />
         {selectedMeditation && <TextDetails data={selectedMeditation} />}
-      </React.Fragment>
     </ScrollView>
   );
 };

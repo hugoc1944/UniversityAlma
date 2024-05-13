@@ -48,7 +48,7 @@ const TextDetails = ({ data }) => {
 
 const styles = StyleSheet.create({
     container: {
-        bottom: 100,
+        bottom: 115,
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#081E3F'
+        color: '#081E3F',
     },
     description: {
         textAlign: 'center',

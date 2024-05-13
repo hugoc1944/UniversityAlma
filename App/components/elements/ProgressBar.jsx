@@ -116,7 +116,50 @@ const AudioPlayer = () => {
   return (
     <View style={styles.audioPlayer}>
       <Text style={styles.buffering}>{isBuffering ? '' : ' '}</Text>
-      <View style={styles.controls}>
+        <View style={[styles.controls, {justifyContent: 'space-between'}, {width: '80%'}, {top: '7%'}]}>
+          <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
+    <Icon
+      name="favorite-border"
+      size={36}
+      color="#9BB1FD"
+    />
+  </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
+    <Icon
+      name="fast-rewind"
+      size={36}
+      color="#9BB1FD"
+    />
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
+    <Icon
+      name={isPlaying ? 'pause-circle-filled' : 'play-circle-filled'}
+      size={70}
+      color="#9BB1FD"
+    />
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.skipButton} onPress={skipForward}>
+    <Icon
+      name="fast-forward"
+      size={36}
+      color="#9BB1FD"
+    />
+  </TouchableOpacity>
+<TouchableOpacity style={styles.skipButton} onPress={putRepeat}>
+  <Icon
+    name={isLooping ? 'repeat-one' : 'repeat'}  // Correctly toggle between 'repeat-one' and 'repeat'
+    size={36}
+    color="#9BB1FD"
+  />
+          </TouchableOpacity>
+
+
+
+      </View>
+      <View style={[styles.controls, {justifyContent: 'center'}, {width: '100%'}, {top: '4%'}]}>
       <Text style={styles.time}>{calculateTime(currentTime)}</Text>
 
       <View style={styles.progressContainer}>
@@ -145,55 +188,11 @@ const AudioPlayer = () => {
             onSlidingStart={onSlidingStart}
             onSlidingComplete={onSlidingComplete}
             minimumTrackTintColor="#9BB1FD"
-            maximumTrackTintColor="rgba(8,30,63,0.1)"
             thumbTintColor="#9BB1FD"
-            trackHeight={4}
+            trackHeight={0}
           />
         </View>
       <Text style={styles.time}>{calculateTime(duration)}</Text>
-
-      </View>
-        <View style={styles.controls}>
-          <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
-    <Icon
-      name="favorite-border"
-      size={36}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
-    <Icon
-      name="fast-rewind"
-      size={36}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
-    <Icon
-      name={isPlaying ? 'pause-circle-filled' : 'play-circle-filled'}
-      size={40}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.skipButton} onPress={skipForward}>
-    <Icon
-      name="fast-forward"
-      size={36}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
-<TouchableOpacity style={styles.skipButton} onPress={putRepeat}>
-  <Icon
-    name={isLooping ? 'repeat-one' : 'repeat'}  // Correctly toggle between 'repeat-one' and 'repeat'
-    size={36}
-    color="#9BB1FD"
-  />
-          </TouchableOpacity>
-
-
 
       </View>
     </View>
@@ -220,14 +219,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 20,
-    opacity: 0
+    opacity: 0,
+    borderRadius: 0
   },
   controls: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 12,
-    width: '100%',
+    marginTop: 30,
   },
   progressContainer: {
     height: 50,
@@ -239,33 +237,25 @@ const styles = StyleSheet.create({
 
   imageBackgroundStyle: {
     flex: 1,  // Fill the area of the mask
-    width: 260,  // Set width as needed
+    width: 220,  // Set width as needed
     height: '100%',  // Fill vertically
   },
   progressMask: {
     height: '100%',
-    width: 260,  // Take full width of the container
+    width: 220,  // Take full width of the container
     position: 'absolute',
     overflow: 'hidden',
   },
   playPauseButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 40,  
-    height: 40,
-    borderRadius: 30,  
-    backgroundColor: '#FFFFFF',  
-    shadowColor: '#000', 
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    width: 70,  
+    height: 70,
   },
   time: {
-    fontSize: 16
+    bottom: 5,
+    fontSize: 13,
+    marginHorizontal: 14
   },
   buffering: {
     fontSize: 14,
