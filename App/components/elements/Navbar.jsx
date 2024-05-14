@@ -19,6 +19,7 @@ import CoursePage from '../pages/CoursePage'
 
 import Publish from '../pages/Publish'
 import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider'
+import UploadPage from '../pages/UploadPage'
 
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -68,7 +69,7 @@ export default function Navbar() {
             options={{
             tabBarIcon: ({focused})=>{
                   return(
-                    <View style={{alignItems:"center",justifyContent:"center",bottom: 21}}>
+                    <View style={{alignItems:"center",justifyContent:"center",bottom: 21}} onPress={() => navigation.navigate('UploadPage')}>
                       <FontAwesomeIcon size={60} icon={faCirclePlus} color={"#C2A5F7"}/>
                     </View>
                   )
@@ -106,6 +107,13 @@ export default function Navbar() {
   options={{
     tabBarButton: () => null // This hides the tab bar button for CoursePage
   }} 
+/>
+          <Tab.Screen 
+  name="UploadPage" 
+  component={UploadPage} 
+  options={{
+    tabBarButton: () => null // This hides the tab bar button for CoursePage
+  }}
 />
         </Tab.Navigator>
       </NavigationContainer>
