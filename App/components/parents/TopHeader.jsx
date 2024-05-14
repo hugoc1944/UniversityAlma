@@ -1,22 +1,33 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import {React, useState} from 'react'
 
 import CornerButton from '../elements/CornerButton'; 
 import ProfilePicture from '../elements/ProfilePicture';
-export default function TopHeader({ data, view }) {
+import PopUp from '../elements/PopUp';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+
+export default function TopHeader({ data, onProfileClick, mentorOn }) {
     //data: {user: "", heading: ""}
     const user = data.user;
     const heading = data.heading;
-
     return (
-        <View style={styles.wrapper}>
-            <CornerButton />
-            <ProfilePicture/>
-            <View style={styles.heading}>
-                <Text style={styles.headingText}>{heading}</Text>
-                <Text style={styles.spanText}>{user + "!"}</Text>
+        <>
+            <View style={styles.wrapper}>
+                {!mentorOn &&
+                <TouchableOpacity style={styles.mentorIcon}>
+                    <FontAwesomeIcon  size={42} icon={faCirclePlus} color={"#C2A5F7"} />
+                </TouchableOpacity>
+                }
+                <CornerButton />
+                <ProfilePicture onClick={onProfileClick}/>
+                <View style={styles.heading} >
+                    <Text style={styles.headingText}>{heading}</Text>
+                    <Text style={styles.spanText}>{user + "!"}</Text>
+                </View>
             </View>
-        </View>
+        </>
+
     )
 }
 
@@ -40,5 +51,11 @@ const styles = StyleSheet.create({
         fontSize: 32,
         position: 'relative',
         bottom: 10
+    },
+    mentorIcon: {
+        position: 'absolute',
+        top: 50,
+        right: 85,
+        top: 55,
     }
 })

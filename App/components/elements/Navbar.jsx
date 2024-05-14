@@ -15,6 +15,7 @@ import Favorites from '../pages/Favorites'
 import Notifications from '../pages/Notifications'
 import Settings from '../pages/Settings'
 import CoursePage from '../pages/CoursePage'
+import PopUp from './PopUp'
 
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -85,7 +86,6 @@ export default function Navbar() {
     tabBarButton: () => null // This hides the tab bar button for CoursePage
   }} 
 />
-
         </Tab.Navigator>
       </NavigationContainer>
   )

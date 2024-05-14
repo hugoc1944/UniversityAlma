@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
-import FourSquareButton from '../elements/CornerButton';
-import ProfilePicture from '../elements/ProfilePicture';
+import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MeditationBox from '../elements/MeditationBox';
 import meditationData from '../../dataFiles/meditationCourses.json';
 import CategoryNav from '../elements/CategoryNav';
-import AudioPlayer from '../elements/ProgressBar';
-import SessionHeader from '../elements/SessionHeader';
-import TextDetails from '../elements/Text';
-import Volume from '../elements/Volume';
 import TopHeader from '../parents/TopHeader';
 import HighlightedSession from '../elements/HighlightedSession';
-import Back from '../elements/Back';
 import { useFavorites } from '../../contexts/FavoritesContext';
-import CoursePage from './CoursePage';
+import PopUp from '../elements/PopUp';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function HomePage({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -31,41 +26,56 @@ export default function HomePage({ navigation }) {
     setShowElements(!showElements);
   };
 
+  //Pop Up & Mentor Toggle
+  const [showPopUp, setShowPopUp] = useState(false);
+  const onProfileClick = () => {
+    setShowPopUp(!showPopUp);
+  }
+  const [mentorOn, setMentorOn] = useState(false);
+  const activateMentor = () => {
+    setMentorOn(!mentorOn);
+  }
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <View style={styles.vertScroll}>
-        <TopHeader data={dataExemplo} />
-        <CategoryNav onSelectCategory={handleCategorySelect} />
-        <HighlightedSession key={0} onPress={toggleElements} />
-      </View>
-      <View style={styles.textCont}>
-        <Text style={styles.textL}>Explore Meditations</Text>
-        <Text style={styles.textR}>View All</Text>
-      </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.horizontalScrollContainer}
-      >
-        {meditationData
-          .filter(course => !selectedCategory || course.category === selectedCategory)
-          .map((course, index) => (
-            <MeditationBox 
-              key={index} 
-              data={course}
-              onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: course })}
-              fav={favorites.some(fav => fav.id === course.id)}
-              toggleFavorite={() => {
-                if (favorites.some(fav => fav.id === course.id)) {
-                  removeFavorite(course.id);
-                } else {
-                  addFavorite(course.id);
-                }
-              }}
-            />
-          ))}
+    <>
+      
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+
+          {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={activateMentor} mentorOn={mentorOn}/>}
+          <View style={styles.vertScroll}>
+            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} mentorOn={mentorOn}/>
+            <CategoryNav  onSelectCategory={handleCategorySelect} />
+            <HighlightedSession key={0} onPress={toggleElements} />
+          </View>
+          <View style={styles.textCont}>
+            <Text style={styles.textL}>Explore Meditations</Text>
+            <Text style={styles.textR}>View All</Text>
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.horizontalScrollContainer}
+          >
+            {meditationData
+              .filter(course => !selectedCategory || course.category === selectedCategory)
+              .map((course, index) => (
+                <MeditationBox 
+                  key={index} 
+                  data={course}
+                  onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: course })}
+                  fav={favorites.some(fav => fav.id === course.id)}
+                  toggleFavorite={() => {
+                    if (favorites.some(fav => fav.id === course.id)) {
+                      removeFavorite(course.id);
+                    } else {
+                      addFavorite(course.id);
+                    }
+                  }}
+                />
+              ))}
+          </ScrollView>
       </ScrollView>
-    </ScrollView>
+    </>
+    
   );
 }
 
@@ -96,5 +106,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingRight: 20,
     color: 'rgba(8, 30, 63, 0.5)'
-  },
+  }
 });

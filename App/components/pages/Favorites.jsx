@@ -24,8 +24,7 @@ export default function Favorites({ navigation }) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <TopHeader data={{ user: "Carlos", heading: "Your Favourites" }} />
-      
+      <TopHeader data={{ user: "Carlos", heading: "Your Favourites" }} mentorOn={true}/>
       {Object.entries(groupedMeditations)
         .filter(([category, meditations]) => 
           meditations.some(meditation => favorites.some(fav => fav.id === meditation.id)))

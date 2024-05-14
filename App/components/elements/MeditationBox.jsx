@@ -32,7 +32,7 @@ export default function MeditationBox({ data, onPlay }) {
                     style={styles.favoriteButton} 
                     onPress={toggleFavorite}
                 >
-                    <FontAwesomeIcon icon={faHeart} size={22} color={isFavorite ? '#C2A5F7' : '#fff'}/>
+                    <FontAwesomeIcon icon={faHeart} size={22} color={isFavorite ? '#C2A5F7' : '#081E3F'}/>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>

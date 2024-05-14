@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function ProfilePicture({ imageUrl }) {
+export default function ProfilePicture({ imageUrl, onClick }) {
   return (
-    <View style={styles.profilePicContainer}>
-      <Image source={require('../../assets/user_male.png')} style={styles.profilePic}/>
-    </View>
+
+      <View style={styles.profilePicContainer} >
+          <TouchableOpacity onPress={onClick}>
+            <Image source={require('../../assets/user_male.png')} style={styles.profilePic}/>
+          </TouchableOpacity>
+      </View>
+
   );
 }
 
