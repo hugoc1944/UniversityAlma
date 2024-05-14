@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react
 import { Audio } from 'expo-av';
 import Slider from '@react-native-community/slider';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons'
 
 const AudioPlayer = () => {
   const [sound, setSound] = useState(null);
@@ -134,11 +136,7 @@ const AudioPlayer = () => {
   </TouchableOpacity>
 
   <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
-    <Icon
-      name={isPlaying ? 'pause-circle-filled' : 'play-circle-filled'}
-      size={70}
-      color="#9BB1FD"
-    />
+    <FontAwesomeIcon  size={65} icon={isPlaying ? faCirclePause : faCirclePlay} color={"#9BB1FD"} />
   </TouchableOpacity>
 
   <TouchableOpacity style={styles.skipButton} onPress={skipForward}>
@@ -155,9 +153,6 @@ const AudioPlayer = () => {
     color="#9BB1FD"
   />
           </TouchableOpacity>
-
-
-
       </View>
       <View style={[styles.controls, {justifyContent: 'center'}, {width: '100%'}, {top: '4%'}]}>
       <Text style={styles.time}>{calculateTime(currentTime)}</Text>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 const TextDetails = ({ data }) => {
     const { title, description, author, sessions } = data;
@@ -16,11 +18,13 @@ const TextDetails = ({ data }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.author}>By: {author}</Text>
-            <Text style={styles.description}>{description}</Text>
             <TouchableOpacity style={styles.sessionButton} onPress={() => setModalVisible(true)}>
                 <Text style={styles.sessions}>{currentSession ? currentSession.name : 'No Session'}</Text>
+                <FontAwesomeIcon style={styles.downIcon} size={18} icon={faAngleDown} color={"#9BB1FD"}/>
             </TouchableOpacity>
+            <Text style={styles.author}>By: {author}</Text>
+            <Text style={styles.description}>{description}</Text>
+            
             <Modal
                 animationType="slide"
                 
@@ -54,35 +58,31 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     title: {
-        fontSize: 22,
+        fontSize: 26,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#081E3F',
+        fontFamily: 'Open Sans',
+        marginTop: 5,
+        marginBottom: 0
     },
     description: {
         textAlign: 'center',
         fontSize: 16,
         marginHorizontal: 50,
-        color: '#333'
+        color: '#081E3F',
+        fontFamily: 'Open Sans',
+        opacity: 0.7
     },
     author: {
         textAlign: 'center',
-        fontSize: 14,
-        fontStyle: 'italic',
-        color: '#666'
-    },
-    sessionButton: {
-        marginTop: 10,
-        backgroundColor: '#9BB1FD',
-        padding: 10,
-        borderRadius: 10,
-    },
-    sessions: {
-        textAlign: 'center',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#081E3F',
+        fontFamily: 'Open Sans',
+        marginBottom: 10
     },
+
     modalView: {
         margin: 0,
         backgroundColor: "white",
@@ -102,6 +102,17 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
     },
+    sessionButton: {
+        marginTop: 5,
+        marginBottom: 1,
+        flexDirection: 'row'
+    },
+    sessions: {
+        textAlign: 'center',
+        color:  '#081E3F',
+        fontSize: 16,
+        fontFamily: 'Open Sans'
+    },
     sessionItem: {
         padding: 10,
         borderRadius: 10,
@@ -109,8 +120,13 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     sessionText: {
-        color: '#333',
+        color: '#081E3F',
         fontSize: 12
+    },
+    downIcon: {
+        position: 'absolute',
+        right: -20,
+        top: 2
     }
 });
 
