@@ -7,18 +7,13 @@ import PopUp from '../elements/PopUp';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
-export default function TopHeader({ data, onProfileClick, mentorOn }) {
+export default function TopHeader({ data, onProfileClick }) {
     //data: {user: "", heading: ""}
     const user = data.user;
     const heading = data.heading;
     return (
         <>
             <View style={styles.wrapper}>
-                {!mentorOn &&
-                <TouchableOpacity style={styles.mentorIcon}>
-                    <FontAwesomeIcon  size={42} icon={faCirclePlus} color={"#C2A5F7"} />
-                </TouchableOpacity>
-                }
                 <CornerButton />
                 <ProfilePicture onClick={onProfileClick}/>
                 <View style={styles.heading} >

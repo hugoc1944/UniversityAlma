@@ -4,6 +4,9 @@ import MeditationBox from '../elements/MeditationBox';
 import TopHeader from '../parents/TopHeader';
 import { useFavorites } from '../../contexts/FavoritesContext';
 import fullMeditationData from '../../dataFiles/meditationCourses.json';
+import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider';
+import PopUp from '../elements/PopUp';
+
 
 export default function Favorites({ navigation }) {
   const { favorites } = useFavorites();
@@ -22,9 +25,18 @@ export default function Favorites({ navigation }) {
     return acc;
   }, {});
 
+  //Mentor view
+  const {toggleButton, showButton} = useAdditionalButton();
+  //Pop Up & Mentor Toggle
+  const [showPopUp, setShowPopUp] = useState(false);
+  const onProfileClick = () => {
+    setShowPopUp(!showPopUp);
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <TopHeader data={{ user: "Carlos", heading: "Your Favourites" }} mentorOn={true}/>
+      {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton}/>}
+      <TopHeader data={{ user: "Carlos", heading: "Your Favourites" }} onProfileClick={onProfileClick}/>
       {Object.entries(groupedMeditations)
         .filter(([category, meditations]) => 
           meditations.some(meditation => favorites.some(fav => fav.id === meditation.id)))

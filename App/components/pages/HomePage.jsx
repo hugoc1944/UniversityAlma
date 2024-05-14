@@ -9,6 +9,7 @@ import { useFavorites } from '../../contexts/FavoritesContext';
 import PopUp from '../elements/PopUp';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider';
 
 export default function HomePage({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -17,6 +18,9 @@ export default function HomePage({ navigation }) {
   const dataExemplo = { user: 'Carlos', heading: 'Welcome Back' };
 
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+
+  //Mentor view
+  const {toggleButton, showButton} = useAdditionalButton();
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -31,18 +35,13 @@ export default function HomePage({ navigation }) {
   const onProfileClick = () => {
     setShowPopUp(!showPopUp);
   }
-  const [mentorOn, setMentorOn] = useState(false);
-  const activateMentor = () => {
-    setMentorOn(!mentorOn);
-  }
   return (
     <>
-      
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
 
-          {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={activateMentor} mentorOn={mentorOn}/>}
+          {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton}/>}
           <View style={styles.vertScroll}>
-            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} mentorOn={mentorOn}/>
+            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} />
             <CategoryNav  onSelectCategory={handleCategorySelect} />
             <HighlightedSession key={0} onPress={toggleElements} />
           </View>

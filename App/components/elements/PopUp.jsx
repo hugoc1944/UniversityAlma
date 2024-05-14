@@ -15,7 +15,7 @@ export default function PopUp({onCloseClick, onMentorToggle, mentorOn}) {
         <Button
             style={styles.btn}
             onPress={onMentorToggle}
-            title={mentorOn ? "Turn On" : "Turn Off"}
+            title={!mentorOn ? "Turn On" : "Turn Off"}
             color="#C2A5F7"
             accessibilityLabel="Learn more about this purple button"
         />
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0, 0.7)',
         width: '100%',
-        height: '100%',
-        marginTop: '50px'
+        height: '100%'
     },
     box: {
         width: '60%',
