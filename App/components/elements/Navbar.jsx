@@ -107,13 +107,6 @@ export default function Navbar() {
     tabBarButton: () => null // This hides the tab bar button for CoursePage
   }} 
 />
-          <Tab.Screen 
-  name="UploadPage" 
-  component={UploadPage} 
-  options={{
-    tabBarButton: () => null // This hides the tab bar button for CoursePage
-  }} 
-/>
         </Tab.Navigator>
       </NavigationContainer>
   )
