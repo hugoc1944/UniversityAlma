@@ -16,6 +16,7 @@ import Notifications from '../pages/Notifications'
 import Settings from '../pages/Settings'
 import CoursePage from '../pages/CoursePage'
 import PopUp from './PopUp'
+import UploadPage from '../pages/UploadPage'
 
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -82,6 +83,13 @@ export default function Navbar() {
           <Tab.Screen 
   name="CoursePage" 
   component={CoursePage} 
+  options={{
+    tabBarButton: () => null // This hides the tab bar button for CoursePage
+  }} 
+/>
+          <Tab.Screen 
+  name="UploadPage" 
+  component={UploadPage} 
   options={{
     tabBarButton: () => null // This hides the tab bar button for CoursePage
   }} 

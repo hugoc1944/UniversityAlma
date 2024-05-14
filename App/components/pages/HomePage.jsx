@@ -42,7 +42,7 @@ export default function HomePage({ navigation }) {
 
           {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={activateMentor} mentorOn={mentorOn}/>}
           <View style={styles.vertScroll}>
-            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} mentorOn={mentorOn}/>
+            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} mentorOn={mentorOn} onPress={() => navigation.navigate('UploadPage')}/>
             <CategoryNav  onSelectCategory={handleCategorySelect} />
             <HighlightedSession key={0} onPress={toggleElements} />
           </View>
