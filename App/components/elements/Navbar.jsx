@@ -16,6 +16,7 @@ import Favorites from '../pages/Favorites'
 import Notifications from '../pages/Notifications'
 import Settings from '../pages/Settings'
 import CoursePage from '../pages/CoursePage'
+
 import Publish from '../pages/Publish'
 import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider'
 
@@ -102,6 +103,13 @@ export default function Navbar() {
           <Tab.Screen 
   name="CoursePage" 
   component={CoursePage} 
+  options={{
+    tabBarButton: () => null // This hides the tab bar button for CoursePage
+  }} 
+/>
+          <Tab.Screen 
+  name="UploadPage" 
+  component={UploadPage} 
   options={{
     tabBarButton: () => null // This hides the tab bar button for CoursePage
   }} 

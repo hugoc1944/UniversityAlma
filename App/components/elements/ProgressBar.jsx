@@ -3,8 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react
 import { Audio } from 'expo-av';
 import Slider from '@react-native-community/slider';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const AudioPlayer = () => {
   const [sound, setSound] = useState(null);
@@ -13,10 +14,27 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [isBuffering, setIsBuffering] = useState(false);
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     loadAudio();
     return () => sound?.unloadAsync();
   }, []);
+
+  // Usando useFocusEffect para lidar com a mudança de foco da página
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = navigation.addListener('blur', () => {
+        // A página está perdendo o foco, pause o áudio
+        if (sound && isPlaying) {
+          sound.pauseAsync();
+          setIsPlaying(false);
+        }
+      });
+
+      return unsubscribe;
+    }, [navigation, sound, isPlaying])
+  );
 
   const loadAudio = async () => {
     const { sound: audioSound, status } = await Audio.Sound.createAsync(
@@ -38,7 +56,6 @@ const AudioPlayer = () => {
       }
     }
   };
-
   const togglePlayPause = async () => {
     if (!sound) return;
     isPlaying ? await sound.pauseAsync() : await sound.playAsync();
