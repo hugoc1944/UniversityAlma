@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { readFromJsonFile, writeToJsonFile, checkFileExists, initializeFavoritesJson } from '../fileUtils.js';
+import * as FileSystem from 'expo-file-system';
 
 const FavoritesContext = createContext();
 
-// Corrected `useFavorites` function
 export const useFavorites = () => useContext(FavoritesContext);
 
 export const FavoritesProvider = ({ children }) => {
@@ -11,29 +10,35 @@ export const FavoritesProvider = ({ children }) => {
 
     useEffect(() => {
         const loadFavorites = async () => {
-            const fileExists = await checkFileExists('favorites.json');
-            if (!fileExists) {
-                await initializeFavoritesJson(); // Make sure to await the initialization
+            const filePath = `${FileSystem.documentDirectory}favorites.json`;
+            const fileExists = await FileSystem.getInfoAsync(filePath);
+            if (!fileExists.exists) {
+                await FileSystem.writeAsStringAsync(filePath, JSON.stringify([]));
             }
-            const data = await readFromJsonFile('favorites.json');
-            setFavorites(data);
+            const data = await FileSystem.readAsStringAsync(filePath);
+            setFavorites(JSON.parse(data));
         };
 
         loadFavorites();
     }, []);
 
     const addFavorite = async (id) => {
-        if (!favorites.some(fav => fav.id === id)) { // Prevent duplicates
+        if (!favorites.some(fav => fav.id === id)) {
             const updatedFavorites = [...favorites, { id }];
             setFavorites(updatedFavorites);
-            await writeToJsonFile('favorites.json', updatedFavorites);
+            await writeFavoritesToFile(updatedFavorites);
         }
     };
 
     const removeFavorite = async (id) => {
         const updatedFavorites = favorites.filter(fav => fav.id !== id);
         setFavorites(updatedFavorites);
-        await writeToJsonFile('favorites.json', updatedFavorites);
+        await writeFavoritesToFile(updatedFavorites);
+    };
+
+    const writeFavoritesToFile = async (favoritesData) => {
+        const filePath = `${FileSystem.documentDirectory}favorites.json`;
+        await FileSystem.writeAsStringAsync(filePath, JSON.stringify(favoritesData));
     };
 
     return (

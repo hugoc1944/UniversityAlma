@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
 
-const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause, isFavorite: initialIsFavorite, toggleFavorite }) => {
+const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause, toggleFavorite, favorites, meditationId }) => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isBuffering, setIsBuffering] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
+  const [isFavorite, setIsFavorite] = useState(favorites.some(fav => fav.id === meditationId));
 
   useEffect(() => {
     if (mediaFile) {
@@ -31,6 +31,10 @@ const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause, isFavorite: i
       onAudioPause();
     }
   }, [isSessionChanging]);
+
+  useEffect(() => {
+    setIsFavorite(favorites.some(fav => fav.id === meditationId));
+  }, [favorites, meditationId]);
 
   const getLocalAudioPath = (fileName) => {
     const audioMap = {
@@ -151,8 +155,8 @@ const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause, isFavorite: i
   };
 
   const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    toggleFavorite();
+    setIsFavorite(!isFavorite); // Immediately update the local state
+    toggleFavorite(); // Update the global state
   };
 
   const progressBarImage = require('../../assets/course/full_wave.png');

@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   verticalScrollContainer: {
     backgroundColor: '#fff',
+    flex: 1,
   },
   headerContainer: {
     width: '100%',
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 1.5, // Adjust the margin to create space between items
     maxWidth: '50%', // Ensuring two columns
-    
+    backgroundColor: '#fff',
   },
   textCont: {
     flexDirection: 'row',
