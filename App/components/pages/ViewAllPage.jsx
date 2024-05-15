@@ -60,14 +60,13 @@ export default function ViewAllPage({ navigation }) {
   const filteredMeditations = meditations.filter(course => !selectedCategory || course.category === selectedCategory);
 
   return (
-    <>
+    <View style={styles.container}>
       {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton} />}
       <FlatList
         data={filteredMeditations}
         renderItem={renderMeditationBox}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item.id.toString()}
         numColumns={2}
-        contentContainerStyle={styles.verticalScrollContainer}
         ListHeaderComponent={
           <View style={styles.headerContainer}>
             <TopHeader data={dataExemplo} onProfileClick={onProfileClick} page={'ViewAllPage'} />
@@ -75,7 +74,7 @@ export default function ViewAllPage({ navigation }) {
           </View>
         }
       />
-    </>
+    </View>
   );
 }
 
@@ -84,17 +83,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  verticalScrollContainer: {
-    backgroundColor: '#fff',
-    height: '100%'
-  },
   headerContainer: {
     width: '100%',
     backgroundColor: '#fff',
-    marginBottom: 23.5
-  },
-  vertScroll: {
-    alignItems: 'center',
+    marginBottom: 23.5,
   },
   meditationBoxContainer: {
     flex: 1,
@@ -110,10 +102,10 @@ const styles = StyleSheet.create({
   textL: {
     fontSize: 21,
     fontWeight: 'bold',
-    color: '#081E3F'
+    color: '#081E3F',
   },
   textR: {
     fontSize: 15,
-    color: 'rgba(8, 30, 63, 0.5)'
+    color: 'rgba(8, 30, 63, 0.5)',
   },
 });
