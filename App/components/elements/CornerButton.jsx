@@ -31,9 +31,16 @@ export default function CornerButton() {
             <FontAwesomeIcon icon={faTimesCircle} size={30} color="#C2A5F7" />
           </TouchableOpacity>
           <View style={styles.helpTextContainer}>
-            <Text style={styles.helpText}>
-              Here is some helpful information to guide you through the app. If
-              you have any questions, feel free to reach out to our support team.
+          <Text style={styles.helpText}>
+            <Text style={styles.info}>Purpose: </Text>
+            The HomePage component serves as the landing page for the University Alma App.
+            {'\n'}{'\n'}
+            <Text style={styles.info}>Components Used: </Text>
+            It displays a category navigation section, and a highlighted meditation session.
+            {'\n'}{'\n'}
+            <Text style={styles.info}>Functionalities: </Text>
+            Users can explore various meditations categorized by their type. 
+            If they prefeer they can view all available meditations, facilitating their search.
             </Text>
           </View>
         </View>
@@ -68,6 +75,10 @@ const styles = StyleSheet.create({
   helpText: {
     fontSize: 18,
     color: '#081E3F',
-    textAlign: 'center',
   },
+  info: {
+    fontSize: 18,
+    color: '#081E3F',
+    fontWeight: 'bold'
+  }
 });
