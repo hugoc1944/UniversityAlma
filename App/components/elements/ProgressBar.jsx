@@ -6,12 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
 
-const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause }) => {
+const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause, isFavorite: initialIsFavorite, toggleFavorite }) => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isBuffering, setIsBuffering] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
 
   useEffect(() => {
     if (mediaFile) {
@@ -149,6 +150,11 @@ const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause }) => {
     return `${minutes}:${returnedSeconds}`;
   };
 
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    toggleFavorite();
+  };
+
   const progressBarImage = require('../../assets/course/full_wave.png');
   const playedWidth = `${(currentTime / duration) * 100}%`;
 
@@ -156,8 +162,8 @@ const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause }) => {
     <View style={styles.audioPlayer}>
       <Text style={styles.buffering}>{isBuffering ? '' : ' '}</Text>
       <View style={[styles.controls, { justifyContent: 'space-between' }, { width: '80%' }, { top: '7%' }]}>
-        <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
-          <Icon name="favorite-border" size={36} color="#9BB1FD" />
+        <TouchableOpacity style={styles.skipButton} onPress={handleToggleFavorite}>
+          <Icon name={isFavorite ? "favorite" : "favorite-border"} size={36} color="#9BB1FD" />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>

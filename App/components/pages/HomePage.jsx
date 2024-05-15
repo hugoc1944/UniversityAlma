@@ -28,8 +28,8 @@ export default function HomePage({ navigation }) {
 
   const onProfileClick = () => {
     setShowPopUp(!showPopUp);
-  }
-  console.log(meditations.length)
+  };
+
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
@@ -50,24 +50,34 @@ export default function HomePage({ navigation }) {
         >
           {meditations
             .filter(course => !selectedCategory || course.category === selectedCategory)
-            .map((course, index) => (
-              <MeditationBox
-                key={index}
-                data={course}
-                onPlay={() => {
-                  const firstSessionMediaFile = course.sessions && course.sessions.length > 0 ? course.sessions[0].mediaFile : null;
-                  navigation.navigate('CoursePage', { selectedMeditation: course, mediaFile: firstSessionMediaFile })
-                }}
-                fav={favorites.some(fav => fav.id === course.id)}
-                toggleFavorite={() => {
-                  if (favorites.some(fav => fav.id === course.id)) {
-                    removeFavorite(course.id);
-                  } else {
-                    addFavorite(course.id);
-                  }
-                }}
-              />
-            ))}
+            .map((course, index) => {
+              const isFavorite = favorites.some(fav => fav.id === course.id);
+              const toggleFavorite = () => {
+                if (isFavorite) {
+                  removeFavorite(course.id);
+                } else {
+                  addFavorite(course.id);
+                }
+              };
+
+              return (
+                <MeditationBox
+                  key={index}
+                  data={course}
+                  onPlay={() => {
+                    const firstSessionMediaFile = course.sessions && course.sessions.length > 0 ? course.sessions[0].mediaFile : null;
+                    navigation.navigate('CoursePage', { 
+                      selectedMeditation: course, 
+                      mediaFile: firstSessionMediaFile,
+                      isFavorite,
+                      toggleFavorite
+                    });
+                  }}
+                  fav={isFavorite}
+                  toggleFavorite={toggleFavorite}
+                />
+              );
+            })}
         </ScrollView>
       </ScrollView>
     </>

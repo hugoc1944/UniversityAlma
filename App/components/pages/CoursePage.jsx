@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import AudioPlayer from '../elements/ProgressBar';
 import SessionHeader from '../elements/SessionHeader';
 import TextDetails from '../elements/Text';
@@ -7,7 +7,7 @@ import Volume from '../elements/Volume';
 import Back from '../elements/Back';
 
 const CoursePage = ({ route, navigation }) => {
-  const { selectedMeditation, sessionNum } = route.params;
+  const { selectedMeditation, sessionNum, isFavorite, toggleFavorite } = route.params;
   const [currentSessionNum, setCurrentSessionNum] = useState(sessionNum || 1);
   const [isSessionChanging, setIsSessionChanging] = useState(false);
 
@@ -32,7 +32,13 @@ const CoursePage = ({ route, navigation }) => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <AudioPlayer mediaFile={currentSession.mediaFile} isSessionChanging={isSessionChanging} onAudioPause={handleAudioPause} />
+      <AudioPlayer 
+        mediaFile={currentSession.mediaFile} 
+        isSessionChanging={isSessionChanging} 
+        onAudioPause={handleAudioPause}
+        isFavorite={isFavorite}
+        toggleFavorite={toggleFavorite}
+      />
       <SessionHeader />
       <Volume />
       <Back onPress={() => navigation.goBack()} />
