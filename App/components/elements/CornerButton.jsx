@@ -86,6 +86,17 @@ export default function CornerButton({ currentScreen }) {
     <Text style={styles.info}>Functionalities: </Text>
     Users can access the materials of their favorited courses and remove courses from their favorites in an easier way than the Home page.
   </Text>
+) : currentScreen === 'Publish' ? (
+  <Text style={styles.helpText}>
+    <Text style={styles.info}>Purpose: </Text>
+    The Upload page allows a Mentor to upload a course.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Elements Displayed: </Text>
+    Input boxes where the Mentor provides the information of his course.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Functionalities: </Text>
+    Mentors can upload courses, with various or one session, for Users to enjoy.
+  </Text>
 ) : (
   <View>
     {/* Default content or empty view */}
