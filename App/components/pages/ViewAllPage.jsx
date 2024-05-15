@@ -86,13 +86,20 @@ export default function ViewAllPage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   verticalScrollContainer: {
-    padding: 15,
+    alignItems: 'flex-start',
+    paddingLeft: 1.5,
+    paddingVertical: 23.5,
+    width: '100%',
   },
   vertScroll: {
     alignItems: 'center',
+  },
+  meditationBoxContainer: {
+    margin: 1.5, // Adjust the margin to create space between items
+    maxWidth: '50%', // Ensuring two columns
   },
   textCont: {
     flexDirection: 'row',
@@ -108,8 +115,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'rgba(8, 30, 63, 0.5)'
   },
-  meditationBoxContainer: {
-    flex: 1,
-    margin: 10,
-  }
 });
