@@ -17,7 +17,6 @@ export const MeditationsProvider = ({ children }) => {
             }
             const data = await readFromJsonFile('meditations.json');
             if (!data || data.length === 0) {
-                console.log("aaaaaaaaaa")
                 await writeToJsonFile('meditations.json', meditationData);
             }
             setMeditations(data);
