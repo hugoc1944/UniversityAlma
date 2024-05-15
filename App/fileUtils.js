@@ -5,9 +5,7 @@ import meditationData from './dataFiles/meditationCourses.json';
 export const writeToJsonFile = async (data, fileName) => {
   const jsonData = JSON.stringify(data);
   const filePath = `${FileSystem.documentDirectory}${fileName}`;
-  console.log("vvvvvvvv")
   try {
-    console.log("vvvvvvvv")
     await FileSystem.writeAsStringAsync(filePath, jsonData);
   } catch (error) {
     throw new Error(`Error writing to JSON file: ${error}`);
