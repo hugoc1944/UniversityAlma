@@ -5,7 +5,7 @@ import * as DocumentPicker from 'expo-document-picker'
 import TopHeader from '../parents/TopHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFileArrowUp, faPlusCircle, faArrowLeft, faCircleCheck} from '@fortawesome/free-solid-svg-icons'
-
+import { useMeditations } from '../../contexts/MeditationsContext';
 
 export default function Publish() {
   const [courseInfo, setCourseInfo] = useState({
@@ -25,6 +25,7 @@ export default function Publish() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const { meditations, addMeditation } = useMeditations(); // Access meditations and addMeditation from context
   const headerData = { user: 'Carlos', heading: 'Upload New Course' };
 
   // Handle input changes
@@ -43,17 +44,29 @@ export default function Publish() {
   }
   // Handle form submission
   const handleSubmit = () => {
-    // All fields filled?
-    const allFieldsFilled = Object.values(courseInfo).every((value) => typeof value === 'string' && value.trim() !== '')
-    if (!allFieldsFilled){
+    const allFieldsFilled = Object.values(courseInfo).every((value) => typeof value === 'string' && value.trim() !== '');
       console.log('Form Submitted', courseInfo);
-      setSubmitted(!submitted);
-    } else{
-      alert('Please fill in all fields.');
-    }
-  };
+        courseInfo.id = meditations.length + 1;
+        console.log(courseInfo);
 
-  handleAddSession = () => {
+        // Constructing the new course object
+        const newCourse = {
+            ...courseInfo,
+            sessions: courseInfo.sessions.map((session, index) => ({
+                sessionNum: index + 1,
+                sessionDescription: '', // Add default session description if needed
+                mediaType: 'audio',
+                mediaFile: session.mediaTitle
+            }))
+        };
+        console.log(newCourse);
+        addMeditation(newCourse);
+        console.log("New course added: ", newCourse);
+    
+};
+
+
+  const handleAddSession = () => {
     const sessionNum = courseInfo.sessions.length + 1;
     const newSession = {
       sessionNum: sessionNum,
