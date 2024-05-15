@@ -7,7 +7,7 @@ import { useFavorites } from '../../contexts/FavoritesContext';
 import PopUp from '../elements/PopUp';
 import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider';
 import { useMeditations } from '../../contexts/MeditationsContext';
-import {Back} from '../elements/Back';
+import { Back } from '../elements/Back';
 
 export default function ViewAllPage({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   },
   verticalScrollContainer: {
     backgroundColor: '#fff',
-    flex: 1,
   },
   headerContainer: {
     width: '100%',
