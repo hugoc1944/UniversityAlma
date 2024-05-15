@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#081E3F',
-    fontFamily: 'Open Sans',
+    
     marginTop: 5,
     marginBottom: 0,
   },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginHorizontal: 50,
     color: '#081E3F',
-    fontFamily: 'Open Sans',
+    
     opacity: 0.7,
   },
   author: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#081E3F',
-    fontFamily: 'Open Sans',
+    
     marginBottom: 10,
   },
   modalView: {
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#081E3F',
     fontSize: 16,
-    fontFamily: 'Open Sans',
+    
   },
   sessionItem: {
     padding: 10,

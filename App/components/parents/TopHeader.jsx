@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
         marginLeft: 22,
     },
     headingText: {
-        fontFamily: 'Roboto',
+        
         fontWeight: '800',
         fontSize: 32,
         color: '#081E3F'
     },
     spanText: {
-        fontFamily: 'Roboto',
+        
         fontSize: 32,
         position: 'relative',
         bottom: 10
