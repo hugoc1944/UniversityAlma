@@ -9,7 +9,7 @@ import PopUp from '../elements/PopUp';
 
 
 export default function Favorites({ navigation }) {
-  const { favorites } = useFavorites();
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
   const dataExemplo = { user: 'Carlos', heading: 'Your Favorites' };
 
   // Filter full meditation data to include only favorites
@@ -50,13 +50,34 @@ export default function Favorites({ navigation }) {
           >
               {meditations
                 .filter(meditation => favorites.some(fav => fav.id === meditation.id))
-                .map((meditation) => (
-              <MeditationBox 
-              key={meditation.id}
-                data={meditation}
-                onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: meditation })}
-              />
-            ))}
+                .map((meditation, index) => {
+                  const isFavorite = favorites.some(fav => fav.id === meditation.id);
+                  const toggleFavorite = () => {
+                    if (isFavorite) {
+                      removeFavorite(meditation.id);
+                    } else {
+                      addFavorite(meditation.id);
+                    }
+                  };
+    
+                  return (
+                    <MeditationBox
+                      key={index}
+                      data={meditation}
+                      onPlay={() => {
+                        const firstSessionMediaFile = meditation.sessions && meditation.sessions.length > 0 ? meditation.sessions[0].mediaFile : null;
+                        navigation.navigate('CoursePage', { 
+                          selectedMeditation: meditation, 
+                          mediaFile: firstSessionMediaFile,
+                          isFavorite,
+                          toggleFavorite
+                        });
+                      }}
+                      fav={isFavorite}
+                      toggleFavorite={toggleFavorite}
+                    />
+                  );
+                })}
           </ScrollView>
           </View>
         ))
