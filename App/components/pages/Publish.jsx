@@ -43,10 +43,9 @@ export default function Publish() {
       courseInfo.description.trim() !== '' &&
       courseInfo.author.trim() !== '' &&
       courseInfo.category.trim() !== '' &&
-      courseInfo.coverMedia.trim() !== '' &&
-      courseInfo.sessions.every((session) => session.sessionTitle.trim() !== '' && session.mediaTitle.trim() !== '');
+      courseInfo.sessions.every((session) => session.sessionTitle.trim() !== '');
 
-    //if (allFieldsFilled) {
+    if (allFieldsFilled) {
       console.log('Form Submitted', courseInfo);
       courseInfo.id = meditations.length + 1;
       console.log(courseInfo);
@@ -65,9 +64,9 @@ export default function Publish() {
       addMeditation(newCourse);
       console.log('New course added: ', newCourse);
       setSubmitted(true); // Set submitted state to true
-    //} else {
-    //  alert('Please fill in all fields.');
-    //}
+    } else {
+      alert('Please fill in all fields.');
+    }
   };
 
   const handleAddSession = () => {
