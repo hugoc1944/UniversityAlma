@@ -49,9 +49,11 @@ const NotificationsScreen = () => {
           </View>
         )}
       </ScrollView>
-      <TouchableOpacity style={styles.readAllButton} onPress={clearNotifications}>
-        <Text style={styles.readAllText}>Read All</Text>
-      </TouchableOpacity>
+      {notifications.length > 0 && (
+        <TouchableOpacity style={styles.readAllButton} onPress={clearNotifications}>
+          <Text style={styles.readAllText}>Read All</Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 };
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContainer: {
-    flex: 1
+    flex: 1,
   },
   header: {
     paddingTop: 80,
