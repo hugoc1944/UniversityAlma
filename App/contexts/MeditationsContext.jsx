@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { checkFileExists, initializeMeditationsJson, readFromJsonFile, writeToJsonFile } from '../fileUtils.js';
+import { checkFileExists, initializeMeditationsJson, readFromJsonFile, writeToJsonFile, deleteJsonFile } from '../fileUtils.js';
 import meditationData from '../dataFiles/meditationCourses.json';
 
 const MeditationsContext = createContext();
@@ -17,9 +17,10 @@ export const MeditationsProvider = ({ children }) => {
             }
             const data = await readFromJsonFile('meditations.json');
             if (!data || data.length === 0) {
-                await writeToJsonFile('meditations.json', meditationData);
+                await writeToJsonFile(meditationData, 'meditations.json');
             }
-            setMeditations(data);
+            const data2 = await readFromJsonFile('meditations.json');
+            setMeditations(data2);
         };
 
         loadMeditations();

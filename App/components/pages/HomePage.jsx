@@ -29,7 +29,7 @@ export default function HomePage({ navigation }) {
   const onProfileClick = () => {
     setShowPopUp(!showPopUp);
   }
-
+  console.log(meditations.length)
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>

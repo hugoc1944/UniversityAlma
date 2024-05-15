@@ -51,3 +51,18 @@ export const initializeMeditationsJson = async () => {
     await FileSystem.writeAsStringAsync(filePath, JSON.stringify([])); // Assuming it starts as an empty array
   }
 };
+
+export const deleteJsonFile = async (fileName) => {
+  const filePath = `${FileSystem.documentDirectory}${fileName}`;
+  try {
+    const fileInfo = await FileSystem.getInfoAsync(filePath);
+    if (fileInfo.exists) {
+      await FileSystem.deleteAsync(filePath);
+      console.log(`File deleted successfully: ${fileName}`);
+    } else {
+      console.log(`File does not exist: ${fileName}`);
+    }
+  } catch (error) {
+    throw new Error(`Error deleting JSON file: ${error}`);
+  }
+};
