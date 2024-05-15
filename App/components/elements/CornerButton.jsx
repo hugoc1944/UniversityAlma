@@ -75,6 +75,17 @@ export default function CornerButton({ currentScreen }) {
     <Text style={styles.info}>Functionalities: </Text>
     Users can view all updates and read the details.
   </Text>
+) : currentScreen === 'ViewAllPage' ? (
+  <Text style={styles.helpText}>
+    <Text style={styles.info}>Purpose: </Text>
+    The All Meditations page presents courses to Users in a search friendly way.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Elements Displayed: </Text>
+    Meditation courses.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Functionalities: </Text>
+    Users can access the materials of their favorited courses and remove courses from their favorites in an easier way than the Home page.
+  </Text>
 ) : (
   <View>
     {/* Default content or empty view */}

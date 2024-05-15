@@ -100,9 +100,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   horizontalScrollContainer: {
-    flexDirection: 'row',
     padding: 15,
-    gap: 10
+    gap: 10,
   },
   vertScroll: {
     alignItems: 'center',

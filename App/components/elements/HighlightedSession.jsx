@@ -10,7 +10,7 @@ export default function HighlightedSession({ onPress, onPlay }) {
         <Text style={styles.cardSubtitle}>Recommended</Text>
         <Text style={styles.cardTitle}>Calming Session</Text>
         <View style={styles.badge}>
-          <Text style={{ fontWeight: "bold", fontSize: 12 }}>16 min</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 12 }}>6 min</Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 8, alignItems: "center", marginTop: 30 }}>
           <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>
