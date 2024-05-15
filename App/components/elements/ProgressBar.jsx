@@ -38,8 +38,13 @@ const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause, toggleFavorit
 
   const getLocalAudioPath = (fileName) => {
     const audioMap = {
-      'house_on_sand.mp3': require('./house_on_sand.mp3'),
-      'Rain.mp3': require('./Rain.mp3'),
+      'Meditation1.mp3': require('./Meditation1.mp3'),
+      'Meditation2.mp3': require('./Meditation2.mp3'),
+      'Meditation3.mp3': require('./Meditation3.mp3'),
+      'Meditation4.mp3': require('./Meditation4.mp3'),
+      'Meditation5.mp3': require('./Meditation5.mp3'),
+      'MeditationG.mp3': require('./MeditationG.mp3'),
+      'MeditationG2.mp3': require('./MeditationG2.mp3'),
     };
     return audioMap[fileName];
   };
