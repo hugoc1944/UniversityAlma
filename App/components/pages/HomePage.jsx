@@ -18,6 +18,7 @@ export default function HomePage({ navigation }) {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const { toggleButton, showButton } = useAdditionalButton();
   const { meditations } = useMeditations();
+  const highlight = meditations.find(meditation => meditation.id === 1);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -31,6 +32,14 @@ export default function HomePage({ navigation }) {
     setShowPopUp(!showPopUp);
   };
 
+  const handlePlay = () => {
+    const firstSessionMediaFile = highlight.sessions && highlight.sessions.length > 0 ? highlight.sessions[0].mediaFile : null;
+    navigation.navigate('CoursePage', { 
+      selectedMeditation: highlight, 
+      sessionNum: 1, // Set the initial session number
+    });
+  };
+
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
@@ -38,11 +47,11 @@ export default function HomePage({ navigation }) {
         <View style={styles.vertScroll}>
           <TopHeader data={dataExemplo} onProfileClick={onProfileClick} />
           <CategoryNav onSelectCategory={handleCategorySelect} />
-          <HighlightedSession key={0} onPress={toggleElements} />
+          <HighlightedSession key={0} onPress={toggleElements} onPlay={handlePlay} />
         </View>
         <View style={styles.textCont}>
           <Text style={styles.textL}>Explore Meditations</Text>
-          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('ViewAllPage')}>
+          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('AllMeditations')}>
             <Text>View All</Text>
           </TouchableOpacity>
         </View>
