@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import MeditationBox from '../elements/MeditationBox';
 import TopHeader from '../parents/TopHeader';
 import { useFavorites } from '../../contexts/FavoritesContext';
-import fullMeditationData from '../../dataFiles/meditationCourses.json';
+import { useMeditations } from '../../contexts/MeditationsContext';
 import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider';
 import PopUp from '../elements/PopUp';
 
-
 export default function Favorites({ navigation }) {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const { meditations } = useMeditations();
   const dataExemplo = { user: 'Carlos', heading: 'Your Favorites' };
 
-  // Filter full meditation data to include only favorites
-  const favoriteMeditations = fullMeditationData.filter(meditation =>
+  // Filter meditations to include only favorites
+  const favoriteMeditations = meditations.filter(meditation =>
     favorites.some(fav => fav.id === meditation.id)
   );
 
@@ -25,9 +25,9 @@ export default function Favorites({ navigation }) {
     return acc;
   }, {});
 
-  //Mentor view
-  const {toggleButton, showButton} = useAdditionalButton();
-  //Pop Up & Mentor Toggle
+  // Mentor view
+  const { toggleButton, showButton } = useAdditionalButton();
+  // Pop Up & Mentor Toggle
   const [showPopUp, setShowPopUp] = useState(false);
   const onProfileClick = () => {
     setShowPopUp(!showPopUp);
@@ -35,19 +35,19 @@ export default function Favorites({ navigation }) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton}/>}
-      <TopHeader data={{ user: "Carlos", heading: "Your Favorites" }} onProfileClick={onProfileClick} page={'Favorites'}/>
+      {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton} />}
+      <TopHeader data={{ user: "Carlos", heading: "Your Favorites" }} onProfileClick={onProfileClick} page={'Favorites'} />
       {Object.entries(groupedMeditations)
         .filter(([category, meditations]) => 
           meditations.some(meditation => favorites.some(fav => fav.id === meditation.id)))
         .map(([category, meditations]) => (
           <View key={category} style={styles.container}>
             <Text style={styles.categoryText}>{category} Meditations</Text>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.horizontalScrollContainer}
-          >
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.horizontalScrollContainer}
+            >
               {meditations
                 .filter(meditation => favorites.some(fav => fav.id === meditation.id))
                 .map((meditation, index) => {
@@ -59,7 +59,7 @@ export default function Favorites({ navigation }) {
                       addFavorite(meditation.id);
                     }
                   };
-    
+
                   return (
                     <MeditationBox
                       key={index}
@@ -78,13 +78,12 @@ export default function Favorites({ navigation }) {
                     />
                   );
                 })}
-          </ScrollView>
+            </ScrollView>
           </View>
         ))
       }
-</ScrollView>)
-
-  
+    </ScrollView>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -101,7 +100,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   categoryText: {
-    
     fontSize: 21,
     fontWeight: 'bold',
     color: '#081E3F',
