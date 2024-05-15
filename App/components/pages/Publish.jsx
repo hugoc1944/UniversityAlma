@@ -123,9 +123,7 @@ export default function Publish() {
     }
   };
 
-  if (!fontsLoaded) {
-    return <ActivityIndicator size="large" />;
-  }
+
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>

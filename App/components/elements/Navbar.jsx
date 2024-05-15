@@ -67,8 +67,8 @@ export default function Navbar() {
             options={{
             tabBarIcon: ()=>{
                   return(
-                    <View style={{alignItems:"center",justifyContent:"center",bottom: 21}}>
-                      <FontAwesomeIcon size={60} icon={faCirclePlus} color={"#C2A5F7"}/>
+                    <View style={{alignItems:"center",justifyContent:"center",bottom: 3}}>
+                      <FontAwesomeIcon border={2}size={50} icon={faCirclePlus} color={"#C2A5F7"}/>
                     </View>
                   )
               }
