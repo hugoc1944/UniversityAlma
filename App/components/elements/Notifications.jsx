@@ -29,7 +29,7 @@ const NotificationsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <TopHeader data={{ heading: 'Notifications' }} />
+        <TopHeader data={{ heading: 'Notifications' }} page={'Notifications'} />
         {notifications.length > 0 ? (
           notifications.map(notification => (
             <View key={notification.id} style={styles.notification}>

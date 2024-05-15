@@ -9,7 +9,7 @@ const SettingsScreen = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <TopHeader data={{ heading: 'Settings' }} />
+      <TopHeader data={{ heading: 'Settings' }} page={'Settings'} />
       <View style={styles.section}>
         <Text style={styles.header}>Account</Text>
         <View style={styles.item}>
@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     maxWidth: 170,
-    overflowWrap: 'break-word'
   },
   value: {
     fontSize: 16,

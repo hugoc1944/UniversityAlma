@@ -45,7 +45,7 @@ export default function HomePage({ navigation }) {
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton} />}
         <View style={styles.vertScroll}>
-          <TopHeader data={dataExemplo} onProfileClick={onProfileClick} />
+          <TopHeader data={dataExemplo} onProfileClick={onProfileClick} page={'HomePage'}/>
           <CategoryNav onSelectCategory={handleCategorySelect} />
           <HighlightedSession key={0} onPress={toggleElements} onPlay={handlePlay} />
         </View>

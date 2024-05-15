@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Modal, Text } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faQuestionCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-export default function CornerButton() {
+export default function CornerButton({ currentScreen }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = () => {
@@ -11,6 +11,7 @@ export default function CornerButton() {
   };
 
   const handleClose = () => {
+    console.log('Close button pressed'); // Debugging line
     setModalVisible(false);
   };
 
@@ -27,21 +28,60 @@ export default function CornerButton() {
         onRequestClose={handleClose}
       >
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
-            <FontAwesomeIcon icon={faTimesCircle} size={30} color="#C2A5F7" />
-          </TouchableOpacity>
           <View style={styles.helpTextContainer}>
-          <Text style={styles.helpText}>
-            <Text style={styles.info}>Purpose: </Text>
-            The HomePage component serves as the landing page for the University Alma App.
-            {'\n'}{'\n'}
-            <Text style={styles.info}>Components Used: </Text>
-            It displays a category navigation section, and a highlighted meditation session.
-            {'\n'}{'\n'}
-            <Text style={styles.info}>Functionalities: </Text>
-            Users can explore various meditations categorized by their type. 
-            If they prefeer they can view all available meditations, facilitating their search.
-            </Text>
+            <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
+              <FontAwesomeIcon icon={faXmark} size={30} color="#081E3F" />
+            </TouchableOpacity>
+            {currentScreen === 'HomePage' ? (
+  <Text style={styles.helpText}>
+    <Text style={styles.info}>Purpose: </Text>
+    The Home page is the landing page of the University Alma App.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Elements Displayed: </Text>
+    A category navigation section (that controls the meditation courses shown) and a highlighted meditation session.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Functionalities: </Text>
+    Users can explore various meditations categorized by their type. They can also add or remove meditation courses from their favorites.
+  </Text>
+) : currentScreen === 'Favorites' ? (
+  <Text style={styles.helpText}>
+    <Text style={styles.info}>Purpose: </Text>
+    The Favorites page presents the user's favorite courses.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Elements Displayed: </Text>
+    The meditation courses that the user has marked as favorites.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Functionalities: </Text>
+    Users can access the materials of their favorited courses and remove courses from their favorites.
+  </Text>
+) : currentScreen === 'Settings' ? (
+  <Text style={styles.helpText}>
+    <Text style={styles.info}>Purpose: </Text>
+    The Settings page allows users to configure their app settings.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Elements Displayed: </Text>
+    Various user settings options.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Functionalities: </Text>
+    Users can change their settings and access detailed information about the app that is not available elsewhere.
+  </Text>
+) : currentScreen === 'Notifications' ? (
+  <Text style={styles.helpText}>
+    <Text style={styles.info}>Purpose: </Text>
+    The Notifications page informs users about new courses and updates.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Elements Displayed: </Text>
+    Notification boxes with the latest app and course updates.
+    {'\n'}{'\n'}
+    <Text style={styles.info}>Functionalities: </Text>
+    Users can view all updates and read the details.
+  </Text>
+) : (
+  <View>
+    {/* Default content or empty view */}
+  </View>
+)}
+
           </View>
         </View>
       </Modal>
@@ -64,13 +104,15 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: 40,
-    right: 20,
+        zIndex: 10,
+        top: 10,
+        right: 10
   },
   helpTextContainer: {
     backgroundColor: '#FDFDFE',
     borderRadius: 10,
     padding: 20,
+    paddingRight: 40
   },
   helpText: {
     fontSize: 18,
@@ -79,6 +121,6 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 18,
     color: '#081E3F',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });

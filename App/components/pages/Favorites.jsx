@@ -36,7 +36,7 @@ export default function Favorites({ navigation }) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton}/>}
-      <TopHeader data={{ user: "Carlos", heading: "Your Favourites" }} onProfileClick={onProfileClick}/>
+      <TopHeader data={{ user: "Carlos", heading: "Your Favorites" }} onProfileClick={onProfileClick} page={'Favorites'}/>
       {Object.entries(groupedMeditations)
         .filter(([category, meditations]) => 
           meditations.some(meditation => favorites.some(fav => fav.id === meditation.id)))

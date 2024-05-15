@@ -4,14 +4,14 @@ import {React, useState} from 'react'
 import CornerButton from '../elements/CornerButton'; 
 import ProfilePicture from '../elements/ProfilePicture';
 
-export default function TopHeader({ data, onProfileClick }) {
+export default function TopHeader({ data, onProfileClick, page }) {
     //data: {user: "", heading: ""}
     const user = data.user;
     const heading = data.heading;
     return (
         <>
             <View style={styles.wrapper}>
-                <CornerButton />
+                <CornerButton currentScreen={page}/>
                 <ProfilePicture onClick={onProfileClick}/>
                 <View style={styles.heading} >
                     <Text style={styles.headingText}>{heading}</Text>
