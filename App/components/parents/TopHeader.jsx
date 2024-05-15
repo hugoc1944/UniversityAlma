@@ -3,9 +3,6 @@ import {React, useState} from 'react'
 
 import CornerButton from '../elements/CornerButton'; 
 import ProfilePicture from '../elements/ProfilePicture';
-import PopUp from '../elements/PopUp';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function TopHeader({ data, onProfileClick }) {
     //data: {user: "", heading: ""}
