@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, TouchableOpacity, ScrollView, Linking, StyleSheet } from 'react-native';
+import TopHeader from '../parents/TopHeader';
 
 const SettingsScreen = () => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -7,9 +8,7 @@ const SettingsScreen = () => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <View style={styles.section1}>
-        <Text style={styles.header1}>Settings</Text>
-      </View>
+      <TopHeader data={{ heading: 'Settings' }} />
       <View style={styles.section}>
         <Text style={styles.header}>Account</Text>
         <View style={styles.item}>
@@ -107,6 +106,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    width: '100%',
   },
   header1: {
     fontSize: 30,

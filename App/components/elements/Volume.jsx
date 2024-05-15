@@ -3,7 +3,7 @@ import { View, StyleSheet, PanResponder } from 'react-native';
 import Svg, { Path, Defs, LinearGradient, Stop, Circle } from 'react-native-svg';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faVolumeXmark, faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
-import VolumeControl from 'react-native-volume-control';
+
 
 // Function to calculate the point on a Bezier curve based on a parameter t
 function calculateBezierPoint(t, p0, p1, p2, p3) {
@@ -26,10 +26,6 @@ function calculateBezierPoint(t, p0, p1, p2, p3) {
 const CurvedSlider = () => {
   const [sliderValue, setSliderValue] = useState(0.5); // Inicia no meio do caminho
   useEffect(() => {
-    const setAudioVolume = async () => {
-      await VolumeControl.change(sliderValue); // Define o volume conforme o valor do slider
-    };
-    setAudioVolume();
   }, [sliderValue]);
 
   // Definição dos pontos de controle
@@ -46,7 +42,6 @@ const CurvedSlider = () => {
     onPanResponderMove: (evt, gestureState) => {
       // Ensure the calculation is proportional to the SVG width
       const newSliderValue = Math.min(Math.max(0, (gestureState.moveX / 300)), 1);
-      console.log('New Slider Value:', newSliderValue);
       setSliderValue(newSliderValue);
     }
     

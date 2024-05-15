@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import TopHeader from '../parents/TopHeader';
 
 const NotificationsScreen = () => {
   const [notifications, setNotifications] = useState([
@@ -28,9 +29,7 @@ const NotificationsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Notifications</Text>
-        </View>
+        <TopHeader data={{ heading: 'Notifications' }} />
         {notifications.length > 0 ? (
           notifications.map(notification => (
             <View key={notification.id} style={styles.notification}>
@@ -60,7 +59,6 @@ const NotificationsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f7',
   },
   scrollContainer: {
     flex: 1
@@ -76,16 +74,12 @@ const styles = StyleSheet.create({
   },
   notification: {
     flexDirection: 'row',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f4f4f7',
     paddingVertical: 15,
     paddingHorizontal: 20,
+    marginHorizontal: 20,
     marginTop: 20,
     borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 5,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -129,7 +123,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   readAllButton: {
-    backgroundColor: '#9072C4',
+    backgroundColor: '#C2A5F7',
     borderRadius: 20,
     padding: 10,
     position: 'absolute',
@@ -138,7 +132,8 @@ const styles = StyleSheet.create({
   },
   readAllText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: 'bold'
   }
 });
 

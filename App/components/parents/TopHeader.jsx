@@ -18,7 +18,11 @@ export default function TopHeader({ data, onProfileClick }) {
                 <ProfilePicture onClick={onProfileClick}/>
                 <View style={styles.heading} >
                     <Text style={styles.headingText}>{heading}</Text>
-                    <Text style={styles.spanText}>{user + "!"}</Text>
+                    {user && (
+                        <>
+                            <Text style={styles.spanText}>{user + "!"}</Text>
+                        </>
+                    )}
                 </View>
             </View>
         </>
