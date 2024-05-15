@@ -32,8 +32,6 @@ const screenOptions = {
 export default function Navbar() {
   const {showButton} = useAdditionalButton();
 
-  console.log(showButton);
-
   return (
     <NavigationContainer>
         <Tab.Navigator screenOptions={screenOptions}>

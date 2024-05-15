@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { readFromJsonFile, writeToJsonFile } from '../fileUtils.js';
+import { readFromJsonFile, writeToJsonFile, checkFileExists, initializeFavoritesJson } from '../fileUtils.js';
 
 const FavoritesContext = createContext();
 
@@ -11,6 +11,10 @@ export const FavoritesProvider = ({ children }) => {
 
     useEffect(() => {
         const loadFavorites = async () => {
+            const fileExists = await checkFileExists('favorites.json');
+            if (!fileExists) {
+                await initializeFavoritesJson(); // Make sure to await the initialization
+            }
             const data = await readFromJsonFile('favorites.json');
             setFavorites(data);
         };
