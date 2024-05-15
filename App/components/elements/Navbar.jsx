@@ -66,7 +66,7 @@ export default function Navbar() {
             name="Publish" 
             component={Publish}
             options={{
-            tabBarIcon: ({focused})=>{
+            tabBarIcon: ()=>{
                   return(
                     <View style={{alignItems:"center",justifyContent:"center",bottom: 21}}>
                       <FontAwesomeIcon size={60} icon={faCirclePlus} color={"#C2A5F7"}/>
