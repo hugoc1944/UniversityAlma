@@ -51,7 +51,7 @@ export default function HomePage({ navigation }) {
         </View>
         <View style={styles.textCont}>
           <Text style={styles.textL}>Explore Meditations</Text>
-          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('AllMeditations')}>
+          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('ViewAllPage')}>
             <Text>View All</Text>
           </TouchableOpacity>
         </View>
