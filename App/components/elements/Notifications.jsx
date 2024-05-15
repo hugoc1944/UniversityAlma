@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import TopHeader from '../parents/TopHeader';
 
 const NotificationsScreen = () => {
   const [notifications, setNotifications] = useState([
@@ -28,9 +29,7 @@ const NotificationsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Notifications</Text>
-        </View>
+        <TopHeader data={{ heading: 'Notifications' }} />
         {notifications.length > 0 ? (
           notifications.map(notification => (
             <View key={notification.id} style={styles.notification}>
