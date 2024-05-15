@@ -5,45 +5,49 @@ import Slider from '@react-native-community/slider';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
-const AudioPlayer = () => {
+const AudioPlayer = ({ mediaFile, sessionNum }) => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isBuffering, setIsBuffering] = useState(false);
 
-  const navigation = useNavigation();
-
   useEffect(() => {
-    loadAudio();
+    if (mediaFile) {
+      loadAudio(mediaFile);
+    }
     return () => sound?.unloadAsync();
-  }, []);
+  }, [mediaFile]);
 
-  // Usando useFocusEffect para lidar com a mudança de foco da página
-  useFocusEffect(
-    React.useCallback(() => {
-      const unsubscribe = navigation.addListener('blur', () => {
-        // A página está perdendo o foco, pause o áudio
-        if (sound && isPlaying) {
-          sound.pauseAsync();
-          setIsPlaying(false);
-        }
-      });
+  const getLocalAudioPath = (fileName) => {
+    const audioMap = {
+      'house_on_sand.mp3': require('./house_on_sand.mp3'),
+      'Rain.mp3': require('./Rain.mp3'),
+      // add other mappings here
+    };
+    return audioMap[fileName];
+  };
 
-      return unsubscribe;
-    }, [navigation, sound, isPlaying])
-  );
+  const loadAudio = async (fileName) => {
+    const audioPath = getLocalAudioPath(fileName);
 
-  const loadAudio = async () => {
-    const { sound: audioSound, status } = await Audio.Sound.createAsync(
-      require('./house_on_sand.mp3'),
-      { shouldPlay: false, isLooping: false },
-      updateStatus
-    );
-    setSound(audioSound);
-    setDuration(status.durationMillis);
+    if (!audioPath) {
+      console.error('Invalid media file:', fileName);
+      return;
+    }
+
+    try {
+      const { sound: audioSound, status } = await Audio.Sound.createAsync(
+        audioPath,
+        { shouldPlay: false, isLooping: false },
+        updateStatus
+      );
+      setSound(audioSound);
+      setDuration(status.durationMillis);
+    } catch (error) {
+      console.error('Failed to load audio:', error);
+    }
   };
 
   const updateStatus = (status) => {
@@ -56,6 +60,7 @@ const AudioPlayer = () => {
       }
     }
   };
+
   const togglePlayPause = async () => {
     if (!sound) return;
     isPlaying ? await sound.pauseAsync() : await sound.playAsync();
@@ -96,7 +101,7 @@ const AudioPlayer = () => {
       }
     }
   };
-  
+
   const skipBackward = async () => {
     if (sound) {
       const newPosition = currentTime - 10000;
@@ -110,18 +115,16 @@ const AudioPlayer = () => {
     }
   };
 
-
   const [isLooping, setIsLooping] = useState(false);
 
   const putRepeat = async () => {
     if (sound) {
-      const newLoopingStatus = !isLooping;  // Determine the new looping status
-      await sound.setIsLoopingAsync(newLoopingStatus);  // Apply it asynchronously
-      setIsLooping(newLoopingStatus);  // Update state to reflect the change
+      const newLoopingStatus = !isLooping; // Determine the new looping status
+      await sound.setIsLoopingAsync(newLoopingStatus); // Apply it asynchronously
+      setIsLooping(newLoopingStatus); // Update state to reflect the change
     }
   };
-  
-  
+
   const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60000);
     const seconds = Math.floor((secs % 60000) / 1000);
@@ -135,46 +138,31 @@ const AudioPlayer = () => {
   return (
     <View style={styles.audioPlayer}>
       <Text style={styles.buffering}>{isBuffering ? '' : ' '}</Text>
-        <View style={[styles.controls, {justifyContent: 'space-between'}, {width: '80%'}, {top: '7%'}]}>
-          <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
-    <Icon
-      name="favorite-border"
-      size={36}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
-        
+      <View style={[styles.controls, { justifyContent: 'space-between' }, { width: '80%' }, { top: '7%' }]}>
         <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
-    <Icon
-      name="fast-rewind"
-      size={36}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
+          <Icon name="favorite-border" size={36} color="#9BB1FD" />
+        </TouchableOpacity>
 
-  <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
-    <FontAwesomeIcon  size={65} icon={isPlaying ? faCirclePause : faCirclePlay} color={"#9BB1FD"} />
-  </TouchableOpacity>
+        <TouchableOpacity style={styles.skipButton} onPress={skipBackward}>
+          <Icon name="fast-rewind" size={36} color="#9BB1FD" />
+        </TouchableOpacity>
 
-  <TouchableOpacity style={styles.skipButton} onPress={skipForward}>
-    <Icon
-      name="fast-forward"
-      size={36}
-      color="#9BB1FD"
-    />
-  </TouchableOpacity>
-<TouchableOpacity style={styles.skipButton} onPress={putRepeat}>
-  <Icon
-    name={isLooping ? 'repeat-one' : 'repeat'}  // Correctly toggle between 'repeat-one' and 'repeat'
-    size={36}
-    color="#9BB1FD"
-  />
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.playPauseButton} onPress={togglePlayPause}>
+          <FontAwesomeIcon size={65} icon={isPlaying ? faCirclePause : faCirclePlay} color={"#9BB1FD"} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.skipButton} onPress={skipForward}>
+          <Icon name="fast-forward" size={36} color="#9BB1FD" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.skipButton} onPress={putRepeat}>
+          <Icon name={isLooping ? 'repeat-one' : 'repeat'} size={36} color="#9BB1FD" />
+        </TouchableOpacity>
       </View>
-      <View style={[styles.controls, {justifyContent: 'center'}, {width: '100%'}, {top: '4%'}]}>
-      <Text style={styles.time}>{calculateTime(currentTime)}</Text>
+      <View style={[styles.controls, { justifyContent: 'center' }, { width: '100%' }, { top: '4%' }]}>
+        <Text style={styles.time}>{calculateTime(currentTime)}</Text>
 
-      <View style={styles.progressContainer}>
+        <View style={styles.progressContainer}>
           <ImageBackground
             source={progressBarImage}
             resizeMode="cover"
@@ -182,12 +170,12 @@ const AudioPlayer = () => {
             imageStyle={{ opacity: 0.3 }}
             pointerEvents="none"
           />
-          <View style={[styles.progressMask, { width: playedWidth}]} pointerEvents="none">
+          <View style={[styles.progressMask, { width: playedWidth }]} pointerEvents="none">
             <ImageBackground
               source={progressBarImage}
               resizeMode="cover"
               style={[styles.imageBackgroundStyle]}
-              imageStyle={{ opacity: 1}}
+              imageStyle={{ opacity: 1 }}
               pointerEvents="none"
             />
           </View>
@@ -204,11 +192,9 @@ const AudioPlayer = () => {
             trackHeight={0}
           />
         </View>
-      <Text style={styles.time}>{calculateTime(duration)}</Text>
-
+        <Text style={styles.time}>{calculateTime(duration)}</Text>
       </View>
     </View>
-    
   );
 };
 
@@ -218,7 +204,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '35%',
     width: '100%',
-    alignItems: 'center',  // Ensure alignment is centered for the whole player
+    alignItems: 'center',
   },
   trackTitle: {
     fontSize: 18,
@@ -226,13 +212,13 @@ const styles = StyleSheet.create({
     marginLeft: 90,
   },
   timeline: {
-    position: 'absolute',  // This will take it out of the normal flow
-    top: 10,  // Adjust top position to align it properly
+    position: 'absolute',
+    top: 10,
     left: 0,
     right: 0,
     height: 20,
     opacity: 0,
-    borderRadius: 0
+    borderRadius: 0,
   },
   controls: {
     flexDirection: 'row',
@@ -243,36 +229,34 @@ const styles = StyleSheet.create({
     height: 50,
     position: 'relative',
     left: 0,
-    overflow: 'hidden',  // Optional: Center vertically if top is set
+    overflow: 'hidden',
   },
-  
-
   imageBackgroundStyle: {
-    flex: 1,  // Fill the area of the mask
-    width: 220,  // Set width as needed
-    height: '100%',  // Fill vertically
+    flex: 1,
+    width: 220,
+    height: '100%',
   },
   progressMask: {
     height: '100%',
-    width: 220,  // Take full width of the container
+    width: 220,
     position: 'absolute',
     overflow: 'hidden',
   },
   playPauseButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 70,  
+    width: 70,
     height: 70,
   },
   time: {
     bottom: 5,
     fontSize: 13,
-    marginHorizontal: 14
+    marginHorizontal: 14,
   },
   buffering: {
     fontSize: 14,
-    color: '#FF0000'
-  }
+    color: '#FF0000',
+  },
 });
 
 export default AudioPlayer;

@@ -58,9 +58,12 @@ export default function HomePage({ navigation }) {
               .filter(course => !selectedCategory || course.category === selectedCategory)
               .map((course, index) => (
                 <MeditationBox 
-                  key={index} 
+                  key={index}
                   data={course}
-                  onPlay={() => navigation.navigate('CoursePage', { selectedMeditation: course })}
+                  onPlay={() => {
+                    const firstSessionMediaFile = course.sessions && course.sessions.length > 0 ? course.sessions[0].mediaFile : null;
+                    navigation.navigate('CoursePage', { selectedMeditation: course, mediaFile: firstSessionMediaFile })
+                  }}
                   fav={favorites.some(fav => fav.id === course.id)}
                   toggleFavorite={() => {
                     if (favorites.some(fav => fav.id === course.id)) {
@@ -70,7 +73,9 @@ export default function HomePage({ navigation }) {
                     }
                   }}
                 />
-              ))}
+              ))
+            }
+
           </ScrollView>
       </ScrollView>
     </>
