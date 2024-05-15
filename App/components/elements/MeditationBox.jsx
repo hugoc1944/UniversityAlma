@@ -37,14 +37,16 @@ export default function MeditationBox({ data, onPlay }) {
                     style={styles.favoriteButton} 
                     onPress={toggleFavorite}
                 >
-                    <FontAwesomeIcon icon={faHeart} size={22} color={isFavorite ? '#C2A5F7' : '#081E3F'}/>
+                    <FontAwesomeIcon icon={faHeart} size={22} color={isFavorite ? '#C2A5F7' : '#EEEEEE'}/>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>
                     <Icon
                         name={'play-arrow'}
-                        size={30}
-                        color="#000000"
+                        size={40}
+                        bottom={4}
+                        right={3}
+                        color="#BBBBFF"
                     />
                 </TouchableOpacity>
             </View>
@@ -80,6 +82,8 @@ const styles = StyleSheet.create({
         height: 32,
         borderRadius: 25,
         backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     favoriteButton: {
         width: 32,

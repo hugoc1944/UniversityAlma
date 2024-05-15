@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   categoryText: {
-    fontFamily: 'Roboto',
+    
     fontSize: 21,
     fontWeight: 'bold',
     color: '#081E3F',
