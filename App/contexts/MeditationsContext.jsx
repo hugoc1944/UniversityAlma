@@ -30,7 +30,6 @@ export const MeditationsProvider = ({ children }) => {
         if (!meditations.some(med => med.id === courseInfo.id)) { // Prevent duplicates
             const updatedMeditations = [...meditations, courseInfo];
             setMeditations(updatedMeditations);
-            console.log(updatedMeditations);
             await writeToJsonFile(updatedMeditations, 'meditations.json');
         }
     };
