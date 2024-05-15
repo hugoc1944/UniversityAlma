@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   inputSubHeading: {
-    fontFamily: 'OpenSans-Regular',
+    
     fontSize: 20,
     marginTop: 5,
     marginLeft: 2,
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
     marginBottom: 10,
-    fontFamily: 'OpenSans-Regular',
+    
   },
   titleInput: {
     flex: 1,
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FDFDFE',
     marginLeft: 5,
-    fontFamily: 'OpenSans-Bold',
+    
   },
   sessionWrapper: {
     marginTop: 20,
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
     bottom: 5
   },
   goBackText: {
-    fontFamily: 'Open Sans',
+    
     fontSize: 18,
     marginLeft: 5
   },
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
   successText: {
-    fontFamily: 'Open Sans',
+    
     fontSize: 28,
     textAlign: 'center',
     width: '85%',
