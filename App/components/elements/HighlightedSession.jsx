@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#9BB1FD',
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 30 
+        marginVertical: 25 
     },
     // temp: {
     //     // position: 'absolute',

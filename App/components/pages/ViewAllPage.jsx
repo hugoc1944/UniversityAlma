@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import MeditationBox from '../elements/MeditationBox';
 import CategoryNav from '../elements/CategoryNav';
 import TopHeader from '../parents/TopHeader';
-import HighlightedSession from '../elements/HighlightedSession';
 import { useFavorites } from '../../contexts/FavoritesContext';
 import PopUp from '../elements/PopUp';
 import { useAdditionalButton } from '../../contexts/AdditionalButtonProvider';
 import { useMeditations } from '../../contexts/MeditationsContext';
+import {Back} from '../elements/Back';
 
 export default function ViewAllPage({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [showElements, setShowElements] = useState(true);
   const [showPopUp, setShowPopUp] = useState(false);
   const dataExemplo = { user: 'Carlos', heading: 'All Meditations' };
 
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const { toggleButton, showButton } = useAdditionalButton();
-  const { meditations } = useMeditations(); // Use the meditations context
+  const { meditations } = useMeditations();
+
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-  };
-
-  const toggleElements = () => {
-    setShowElements(!showElements);
   };
 
   const onProfileClick = () => {
@@ -65,20 +61,20 @@ export default function ViewAllPage({ navigation }) {
 
   return (
     <>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton} />}
-        <View style={styles.vertScroll}>
-          <TopHeader data={dataExemplo} onProfileClick={onProfileClick} />
-          <CategoryNav onSelectCategory={handleCategorySelect} />
-        </View>
-        <FlatList
-          data={filteredMeditations}
-          renderItem={renderMeditationBox}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
-          contentContainerStyle={styles.verticalScrollContainer}
-        />
-      </ScrollView>
+      {showPopUp && <PopUp onCloseClick={onProfileClick} onMentorToggle={toggleButton} mentorOn={showButton} />}
+      <FlatList
+        data={filteredMeditations}
+        renderItem={renderMeditationBox}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.verticalScrollContainer}
+        ListHeaderComponent={
+          <View style={styles.headerContainer}>
+            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} />
+            <CategoryNav onSelectCategory={handleCategorySelect} />
+          </View>
+        }
+      />
     </>
   );
 }
@@ -86,13 +82,24 @@ export default function ViewAllPage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   verticalScrollContainer: {
-    padding: 15,
+    backgroundColor: '#fff',
+  },
+  headerContainer: {
+    width: '100%',
+    backgroundColor: '#fff',
+    marginBottom: 23.5
   },
   vertScroll: {
     alignItems: 'center',
+  },
+  meditationBoxContainer: {
+    flex: 1,
+    margin: 1.5, // Adjust the margin to create space between items
+    maxWidth: '50%', // Ensuring two columns
+    
   },
   textCont: {
     flexDirection: 'row',
@@ -108,8 +115,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'rgba(8, 30, 63, 0.5)'
   },
-  meditationBoxContainer: {
-    flex: 1,
-    margin: 10,
-  }
 });
