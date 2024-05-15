@@ -17,7 +17,8 @@ export default function HomePage({ navigation }) {
 
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const { toggleButton, showButton } = useAdditionalButton();
-  const { meditations } = useMeditations(); // Use the meditations context
+  const { meditations } = useMeditations();
+
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
@@ -70,9 +71,9 @@ export default function HomePage({ navigation }) {
                     const firstSessionMediaFile = course.sessions && course.sessions.length > 0 ? course.sessions[0].mediaFile : null;
                     navigation.navigate('CoursePage', { 
                       selectedMeditation: course, 
-                      mediaFile: firstSessionMediaFile,
-                      isFavorite,
-                      toggleFavorite
+                      sessionNum: 1, // Set the initial session number
+                      toggleFavorite,
+                      favorites, // Pass favorites to CoursePage
                     });
                   }}
                   fav={isFavorite}

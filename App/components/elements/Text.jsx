@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-const TextDetails = ({ data, onSessionChange }) => {
+const TextDetails = ({ data, currentSessionNum, onSessionChange }) => {
   const { title, description, author, sessions } = data;
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentSession, setCurrentSession] = useState(sessions.length ? { ...sessions[0], name: `Session 1` } : null);
+  const [currentSession, setCurrentSession] = useState(sessions.length ? { ...sessions[currentSessionNum - 1], name: `Session ${currentSessionNum}` } : null);
+
+  useEffect(() => {
+    setCurrentSession(sessions.length ? { ...sessions[currentSessionNum - 1], name: `Session ${currentSessionNum}` } : null);
+  }, [currentSessionNum]);
 
   const handleSelectSession = (session, index) => {
     const newSession = { ...session, name: `Session ${index + 1}` };
@@ -84,7 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
-    position: 'center',
     marginHorizontal: '20%',
     width: '60%',
     top: '50%',
