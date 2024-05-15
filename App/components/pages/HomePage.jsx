@@ -53,7 +53,7 @@ export default function HomePage({ navigation }) {
         </View>
         <View style={styles.textCont}>
           <Text style={styles.textL}>Explore Meditations</Text>
-          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('AllMeditations')}>
+          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('ViewAllPage')}>
             <Text>View All</Text>
           </TouchableOpacity>
         </View>
@@ -131,9 +131,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   horizontalScrollContainer: {
-    flexDirection: 'row',
     padding: 15,
-    gap: 10
+    gap: 10,
   },
   vertScroll: {
     alignItems: 'center',

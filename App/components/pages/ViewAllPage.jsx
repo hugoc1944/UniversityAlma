@@ -70,7 +70,7 @@ export default function ViewAllPage({ navigation }) {
         contentContainerStyle={styles.verticalScrollContainer}
         ListHeaderComponent={
           <View style={styles.headerContainer}>
-            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} />
+            <TopHeader data={dataExemplo} onProfileClick={onProfileClick} page={'ViewAllPage'} />
             <CategoryNav onSelectCategory={handleCategorySelect} />
           </View>
         }
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   verticalScrollContainer: {
     backgroundColor: '#fff',
+    height: '100%'
   },
   headerContainer: {
     width: '100%',
