@@ -19,8 +19,6 @@ const CoursePage = ({ route, navigation }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <AudioPlayer mediaFile={currentSession.mediaFile} sessionNum={currentSessionNum} />
-      <Text>Selected Meditation: {selectedMeditation.title}</Text>
-      <Text>Current Session: {currentSessionNum}</Text>
       <SessionHeader />
       <Volume />
       <Back onPress={() => navigation.goBack()} />
