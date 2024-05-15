@@ -17,7 +17,11 @@ const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause }) => {
     if (mediaFile) {
       loadAudio(mediaFile);
     }
-    return () => sound?.unloadAsync();
+    return () => {
+      if (sound) {
+        sound.unloadAsync().catch((error) => console.error('Failed to unload sound:', error));
+      }
+    };
   }, [mediaFile]);
 
   useEffect(() => {
