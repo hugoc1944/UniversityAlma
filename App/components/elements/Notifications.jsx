@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     padding: 20,
-    alignItems: 'center',
     marginTop: 20,
   },
   emptyText: {
