@@ -40,6 +40,8 @@ export default function HomePage({ navigation }) {
     });
   };
 
+  const filteredMeditations = meditations.filter(course => !selectedCategory || course.category === selectedCategory);
+
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
@@ -55,14 +57,13 @@ export default function HomePage({ navigation }) {
             <Text>View All</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.horizontalScrollContainer}
-        >
-          {meditations
-            .filter(course => !selectedCategory || course.category === selectedCategory)
-            .map((course, index) => {
+        {filteredMeditations.length > 1 ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.horizontalScrollContainer}
+          >
+            {filteredMeditations.map((course, index) => {
               const isFavorite = favorites.some(fav => fav.id === course.id);
               const toggleFavorite = () => {
                 if (isFavorite) {
@@ -88,7 +89,37 @@ export default function HomePage({ navigation }) {
                 />
               );
             })}
-        </ScrollView>
+          </ScrollView>
+        ) : (
+          <View style={styles.horizontalScrollContainer}>
+            {filteredMeditations.map((course, index) => {
+              const isFavorite = favorites.some(fav => fav.id === course.id);
+              const toggleFavorite = () => {
+                if (isFavorite) {
+                  removeFavorite(course.id);
+                } else {
+                  addFavorite(course.id);
+                }
+              };
+
+              return (
+                <MeditationBox
+                  key={index}
+                  data={course}
+                  onPlay={() => {
+                    const firstSessionMediaFile = course.sessions && course.sessions.length > 0 ? course.sessions[0].mediaFile : null;
+                    navigation.navigate('CoursePage', { 
+                      selectedMeditation: course, 
+                      sessionNum: 1, // Set the initial session number
+                    });
+                  }}
+                  fav={isFavorite}
+                  toggleFavorite={toggleFavorite}
+                />
+              );
+            })}
+          </View>
+        )}
       </ScrollView>
     </>
   );
