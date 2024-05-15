@@ -9,9 +9,10 @@ const TextDetails = ({ data, onSessionChange }) => {
   const [currentSession, setCurrentSession] = useState(sessions.length ? { ...sessions[0], name: `Session 1` } : null);
 
   const handleSelectSession = (session, index) => {
-    setCurrentSession({ ...session, name: `Session ${index + 1}` });
-    onSessionChange(session.sessionNum);
+    const newSession = { ...session, name: `Session ${index + 1}` };
+    setCurrentSession(newSession);
     setModalVisible(false);
+    onSessionChange(session.sessionNum); // Notify parent component of session change
   };
 
   return (
@@ -28,9 +29,7 @@ const TextDetails = ({ data, onSessionChange }) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
+        onRequestClose={() => setModalVisible(!modalVisible)}
       >
         <View style={styles.modalView}>
           <FlatList
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
+    position: 'center',
     marginHorizontal: '20%',
     width: '60%',
     top: '50%',

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
 
-const AudioPlayer = ({ mediaFile, sessionNum }) => {
+const AudioPlayer = ({ mediaFile, isSessionChanging, onAudioPause }) => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -20,11 +20,17 @@ const AudioPlayer = ({ mediaFile, sessionNum }) => {
     return () => sound?.unloadAsync();
   }, [mediaFile]);
 
+  useEffect(() => {
+    if (isSessionChanging) {
+      pauseAudio();
+      onAudioPause();
+    }
+  }, [isSessionChanging]);
+
   const getLocalAudioPath = (fileName) => {
     const audioMap = {
       'house_on_sand.mp3': require('./house_on_sand.mp3'),
       'Rain.mp3': require('./Rain.mp3'),
-      // add other mappings here
     };
     return audioMap[fileName];
   };
@@ -65,6 +71,13 @@ const AudioPlayer = ({ mediaFile, sessionNum }) => {
     if (!sound) return;
     isPlaying ? await sound.pauseAsync() : await sound.playAsync();
     setIsPlaying(!isPlaying);
+  };
+
+  const pauseAudio = async () => {
+    if (sound && isPlaying) {
+      await sound.pauseAsync();
+      setIsPlaying(false);
+    }
   };
 
   const onSliderValueChange = async (value) => {
