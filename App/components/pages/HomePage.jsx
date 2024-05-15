@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MeditationBox from '../elements/MeditationBox';
 import CategoryNav from '../elements/CategoryNav';
 import TopHeader from '../parents/TopHeader';
@@ -41,7 +41,9 @@ export default function HomePage({ navigation }) {
         </View>
         <View style={styles.textCont}>
           <Text style={styles.textL}>Explore Meditations</Text>
-          <Text style={styles.textR}>View All</Text>
+          <TouchableOpacity style={styles.textR} onPress={() => navigation.navigate('ViewAllPage')}>
+            <Text>View All</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView
           horizontal
