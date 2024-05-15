@@ -11,7 +11,6 @@ export default function CornerButton({ currentScreen }) {
   };
 
   const handleClose = () => {
-    console.log('Close button pressed'); // Debugging line
     setModalVisible(false);
   };
 

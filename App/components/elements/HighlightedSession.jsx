@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function HighlightedSession({ onPress, onPlay }) {
   return (
@@ -13,11 +14,12 @@ export default function HighlightedSession({ onPress, onPlay }) {
         </View>
         <View style={{ flexDirection: 'row', gap: 8, alignItems: "center", marginTop: 30 }}>
           <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>
-            <Icon
-              name={'play-arrow'}
-              size={30}
-              color="#000000"
-            />
+          <FontAwesome5
+                        name={'play'}
+                        size={20}
+                        right={-2}
+                        color="#BBBBFF"
+                    />
           </TouchableOpacity>
           <Text style={{ fontSize: 15, color: "#ffffff" }}>Play</Text>
         </View>
@@ -65,9 +67,11 @@ const styles = StyleSheet.create({
     padding: 2
   },
   playPauseButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 25,
-    backgroundColor: '#ffffff',
+    width: 32,
+        height: 32,
+        borderRadius: 25,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
   }
 });
