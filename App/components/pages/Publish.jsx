@@ -136,7 +136,7 @@ export default function Publish() {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {!submitted ? (
         <View style={{ backgroundColor: '#FDFDFE' }}>
-          <TopHeader data={headerData} />
+          <TopHeader data={headerData} page={'Publish'}/>
           <View style={styles.wrapper}>
             <Text style={styles.inputSubHeading}>Title</Text>
             <TextInput
@@ -215,7 +215,7 @@ export default function Publish() {
         </View>
       ) : (
         <View style={styles.successWrapper}>
-          <TopHeader data={''} />
+          <TopHeader data={''} page={'Publish'}/>
           <TouchableOpacity style={styles.goBack} onPress={() => setSubmitted(!submitted)}>
             <FontAwesomeIcon icon={faArrowLeft} size={23} color={'#081E3F'} />
             <Text style={styles.goBackText}>Go back to editing</Text>
