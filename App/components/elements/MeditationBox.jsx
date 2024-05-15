@@ -7,6 +7,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
+
 export default function MeditationBox({ data, onPlay }) {
     const { favorites, addFavorite, removeFavorite } = useFavorites();
     const isFavorite = data && favorites.some(fav => fav.id === data.id);
@@ -39,7 +40,7 @@ export default function MeditationBox({ data, onPlay }) {
                     style={styles.favoriteButton} 
                     onPress={toggleFavorite}
                 >
-                    <FontAwesomeIcon icon={faHeart} size={22} color={isFavorite ? '#9966BB' : '#BBBBFF'}/>
+                    <Icon name={isFavorite ? "favorite" : "favorite-border"} bottom={-1}size={29} color="#9BB1FD" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>
