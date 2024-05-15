@@ -3,13 +3,11 @@ import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity
 import { Picker } from '@react-native-picker/picker';
 import * as DocumentPicker from 'expo-document-picker';
 import TopHeader from '../parents/TopHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
-import useFonts from '../elements/useFonts'; // Import the custom hook
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faFileArrowUp, faPlusCircle, faArrowLeft, faCircleCheck} from '@fortawesome/free-solid-svg-icons'
+import { useMeditations } from '../../contexts/MeditationsContext';
 
 export default function Publish() {
-  const fontsLoaded = useFonts(); // Load fonts using the custom hook
-
   const [courseInfo, setCourseInfo] = useState({
     title: '',
     description: '',
@@ -24,7 +22,9 @@ export default function Publish() {
       },
     ],
   });
+  const [submitted, setSubmitted] = useState(false);
 
+  const { meditations, addMeditation } = useMeditations(); // Access meditations and addMeditation from context
   const headerData = { user: 'Carlos', heading: 'Upload New Course' };
 
   const handleInputChange = (key, text, index) => {
@@ -38,22 +38,30 @@ export default function Publish() {
   };
 
   const handleSubmit = () => {
-    const allFieldsFilled =
-      courseInfo.title.trim() !== '' &&
-      courseInfo.description.trim() !== '' &&
-      courseInfo.author.trim() !== '' &&
-      courseInfo.category.trim() !== '' &&
-      courseInfo.coverMedia.trim() !== '' &&
-      courseInfo.sessions.every((session) => session.sessionTitle.trim() !== '' && session.mediaTitle.trim() !== '');
-
-    if (allFieldsFilled) {
+    const allFieldsFilled = Object.values(courseInfo).every((value) => typeof value === 'string' && value.trim() !== '');
       console.log('Form Submitted', courseInfo);
-    } else {
-      alert('Please fill in all fields.');
-    }
-  };
+        courseInfo.id = meditations.length + 1;
+        console.log(courseInfo);
+
+        // Constructing the new course object
+        const newCourse = {
+            ...courseInfo,
+            sessions: courseInfo.sessions.map((session, index) => ({
+                sessionNum: index + 1,
+                sessionDescription: '', // Add default session description if needed
+                mediaType: 'audio',
+                mediaFile: session.mediaTitle
+            }))
+        };
+        console.log(newCourse);
+        addMeditation(newCourse);
+        console.log("New course added: ", newCourse);
+    
+};
+
 
   const handleAddSession = () => {
+    const sessionNum = courseInfo.sessions.length + 1;
     const newSession = {
       sessionNum: courseInfo.sessions.length + 1,
       sessionTitle: '',
@@ -121,16 +129,17 @@ export default function Publish() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <View style={{ backgroundColor: '#FDFDFE' }}>
-        <TopHeader data={headerData} />
-        <View style={styles.wrapper}>
-          <Text style={styles.inputSubHeading}>Title</Text>
-          <TextInput
-            style={styles.input}
-            value={courseInfo.title}
-            onChangeText={(text) => handleInputChange('title', text)}
-            placeholder="Your course title"
-          />
+      {!submitted ? 
+        <View style={{backgroundColor: "#FDFDFE"}}>
+      <TopHeader data={headerData} />
+      <View style={styles.wrapper}>
+        <Text style={styles.inputSubHeading}>Title</Text>
+        <TextInput
+        style={styles.input}
+          value={courseInfo.title}
+          onChangeText={(text) => handleInputChange('title', text)}
+          placeholder='Your course title'
+        />
 
           <Text style={styles.inputSubHeading}>Description</Text>
           <TextInput
@@ -162,45 +171,68 @@ export default function Publish() {
             <Picker.Item label="Breathe" value="Breathe" />
           </Picker>
 
-          <Text style={styles.inputSubHeading}>Cover Picture</Text>
-          <TouchableOpacity style={styles.btn} onPress={handleCoverUpload}>
-            <View style={styles.btnContent}>
-              <FontAwesomeIcon icon={faFileArrowUp} size={23} color={'#FDFDFE'} />
-              <Text style={styles.btnText}>Upload Cover Picture</Text>
+        <View style={styles.sessionWrapper}>
+          <Text style={styles.heading}>Course Content</Text>
+          {courseInfo.sessions.map((session, index) => (
+            <View key={index}>
+              <Text style={styles.subHeading}>Session {session.sessionNum}</Text>
+              <View style={styles.sessionContent}>
+                <TextInput
+                  style={[styles.input, styles.titleInput]}
+                  value={session.sessionTitle}
+                  onChangeText={(text) => handleInputChange("sessionTitle", text, index)}
+                  placeholder='Session title'
+                />
+              <TouchableOpacity style={styles.btnSession} onPress={() => handleFileUpload(index)}>
+                <View style={styles.btnContent}>
+                    <FontAwesomeIcon icon={faFileArrowUp} size={24} color={'#FDFDFE'}/>
+                </View>
+              </TouchableOpacity>
+                {index !== 0 &&
+                <TouchableOpacity style={styles.btnRemove} onPress={() => handleRemoveSession(index)} >
+                  <Text style={styles.removeText}>Remove</Text>
+                </TouchableOpacity>}
+              </View>
             </View>
+          ))}
+        <TouchableOpacity style={styles.btnAddSession} onPress={handleAddSession}>
+              <FontAwesomeIcon icon={faPlusCircle} size={50} color={'#C2A5F7'}/>
+        </TouchableOpacity>
+        </View>
+        
+        <View style={styles.submitWrapper}>
+          <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+                <Text style={styles.btnText}>Publish Course</Text>
+          </TouchableOpacity>
+        </View>
+
+        </View>
+        </View> 
+        :
+        <View style={styles.successWrapper}>
+          <TopHeader data={""} />
+          
+          <TouchableOpacity style={styles.goBack} onPress={() => setSubmitted(!submitted)}>
+            <FontAwesomeIcon icon={faArrowLeft} size={23} color={'#081E3F'}/>
+            <Text style={styles.goBackText}>Go back to editing</Text>
           </TouchableOpacity>
 
-          <View style={styles.sessionWrapper}>
-            <Text style={styles.heading}>Course Content</Text>
-            {courseInfo.sessions.map((session, index) => (
-              <View key={index}>
-                <Text style={styles.subHeading}>Session {session.sessionNum}</Text>
-                <View style={styles.sessionContent}>
-                  <TextInput
-                    style={[styles.input, styles.titleInput]}
-                    value={session.sessionTitle}
-                    onChangeText={(text) => handleInputChange('sessionTitle', text, index)}
-                    placeholder="Title"
-                  />
-                  <Button title="Upload File" onPress={() => handleFileUpload(index)} />
-                  {index !== 0 && <Button title="Remove Session" onPress={() => handleRemoveSession(index)} />}
-                </View>
-              </View>
-            ))}
-            <Button title="Add Session" onPress={handleAddSession} />
+          <View style={styles.textWrapper}>
+            <FontAwesomeIcon icon={faCircleCheck} size={70} color={'#C2A5F7'}/>
+            <Text style={styles.successText}>Your course was submitted for review!</Text>
           </View>
-
-          <Button style={styles.submit} title="Submit" onPress={handleSubmit} />
         </View>
-      </View>
+      }
+      
+
+
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#FDFDFE"
   },
   wrapper: {
     padding: 25,
@@ -213,19 +245,16 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   heading: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#081E3F',
-    fontFamily: 'OpenSans-Bold',
+    marginBottom: 10,
+    marginTop: 15,
+    color: "#081E3F"
   },
   subHeading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 10,
-    color: '#081E3F',
-    fontFamily: 'OpenSans-Bold',
+    fontSize: 20,
+    marginBottom: 2,
+    color: "#081E3F"
   },
   input: {
     width: '100%',
@@ -269,9 +298,66 @@ const styles = StyleSheet.create({
   sessionWrapper: {
     marginTop: 20,
   },
+  removeText: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: "#FDFDFE",
+  },
+  btnSession: {
+    backgroundColor: "#C2A5F7",
+    width: 60,
+    height: 50,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10
+  },
+  btnRemove: {
+    backgroundColor: "#C2A5F7",
+    width: 100,
+    height: 50,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10
+  },
+  btnAddSession: {
+    marginBottom: 15,
+  },
   sessionContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  submitWrapper: {
+    alignItems: 'center',
+  },
+
+  //Publish Page
+  successWrapper: {
+    backgroundColor: "#FDFDFE",
+  },
+  goBack: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 15,
+    position: 'relative',
+    bottom: 5
+  },
+  goBackText: {
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    marginLeft: 5
+  },
+  textWrapper: {
+    alignItems: 'center',
+    marginTop: 150,
+  },
+  successText: {
+    fontFamily: 'Open Sans',
+    fontSize: 28,
+    textAlign: 'center',
+    width: '85%',
+    marginTop: 5
+  }
 });

@@ -7,7 +7,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 
 export default function MeditationBox({ data, onPlay }) {
     const { favorites, addFavorite, removeFavorite } = useFavorites();
-    const isFavorite = favorites.some(fav => fav.id === data.id);
+    const isFavorite = data && favorites.some(fav => fav.id === data.id);
 
     const toggleFavorite = () => {
         if (isFavorite) {
@@ -16,6 +16,11 @@ export default function MeditationBox({ data, onPlay }) {
             addFavorite(data.id);
         }
     };
+
+    // Ensure data and data.sessions are defined
+    if (!data || !data.sessions) {
+        return null; // Or return some placeholder UI
+    }
 
     return (
         <View style={styles.boxShape}>

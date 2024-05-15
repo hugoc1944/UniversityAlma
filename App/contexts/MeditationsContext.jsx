@@ -26,13 +26,15 @@ export const MeditationsProvider = ({ children }) => {
         loadMeditations();
     }, []);
 
-    const addMeditation = async (id) => {
-        if (!meditations.some(med => med.id === id)) { // Prevent duplicates
-            const updatedMeditations = [...meditations, { id }];
+    const addMeditation = async (courseInfo) => {
+        if (!meditations.some(med => med.id === courseInfo.id)) { // Prevent duplicates
+            const updatedMeditations = [...meditations, courseInfo];
             setMeditations(updatedMeditations);
-            await writeToJsonFile('meditations.json', updatedMeditations);
+            console.log(updatedMeditations);
+            await writeToJsonFile(updatedMeditations, 'meditations.json');
         }
     };
+    
 
     const removeMeditation = async (id) => {
         const updatedMeditations = meditations.filter(med => med.id !== id);
