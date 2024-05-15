@@ -6,11 +6,13 @@ import SessionHeader from '../elements/SessionHeader';
 import TextDetails from '../elements/Text';
 import Volume from '../elements/Volume';
 import Back from '../elements/Back';
+import { useFavorites } from '../../contexts/FavoritesContext';
 
 const CoursePage = ({ route, navigation }) => {
-  const { selectedMeditation, toggleFavorite, favorites } = route.params;
+  const { selectedMeditation } = route.params;
   const [currentSessionNum, setCurrentSessionNum] = useState(1); // Always start at session 1
   const [isSessionChanging, setIsSessionChanging] = useState(false);
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -36,6 +38,15 @@ const CoursePage = ({ route, navigation }) => {
 
   const handleAudioPause = () => {
     setIsSessionChanging(false);
+  };
+
+  const isFavorite = favorites.some(fav => fav.id === selectedMeditation.id);
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFavorite(selectedMeditation.id);
+    } else {
+      addFavorite(selectedMeditation.id);
+    }
   };
 
   return (

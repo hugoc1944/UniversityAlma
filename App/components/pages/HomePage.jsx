@@ -72,8 +72,6 @@ export default function HomePage({ navigation }) {
                     navigation.navigate('CoursePage', { 
                       selectedMeditation: course, 
                       sessionNum: 1, // Set the initial session number
-                      toggleFavorite,
-                      favorites, // Pass favorites to CoursePage
                     });
                   }}
                   fav={isFavorite}
