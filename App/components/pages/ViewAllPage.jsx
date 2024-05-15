@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   verticalScrollContainer: {
     backgroundColor: '#fff',
+    flex: 1,
   },
   headerContainer: {
     width: '100%',
