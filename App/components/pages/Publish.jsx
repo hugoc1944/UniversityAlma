@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as DocumentPicker from 'expo-document-picker';
 import TopHeader from '../parents/TopHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFileArrowUp, faArrowLeft, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faFileArrowUp, faArrowLeft, faCircleCheck, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useMeditations } from '../../contexts/MeditationsContext';
 
 export default function Publish() {
@@ -102,14 +102,13 @@ export default function Publish() {
         type: 'audio/mpeg',
         copyToCacheDirectory: false,
       });
-      if (result.type === 'success') {
-        const { name } = result;
+      console.log(result)
+        const { name } = result.assets[0];
         console.log('File selected: ', name);
 
         const updatedSessions = [...courseInfo.sessions];
         updatedSessions[index].mediaTitle = name;
         setCourseInfo({ ...courseInfo, sessions: updatedSessions });
-      }
     } catch (error) {
       console.error('Error selecting file: ', error);
     }
@@ -124,14 +123,12 @@ export default function Publish() {
       if (result.type === 'success') {
         const { name } = result;
         console.log('File selected: ', name);
-
         setCourseInfo({ ...courseInfo, coverMedia: name });
       }
     } catch (error) {
       console.error('Error selecting file: ', error);
     }
   };
-
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {!submitted ? (
@@ -190,7 +187,7 @@ export default function Publish() {
                     />
                     <TouchableOpacity style={styles.btnSession} onPress={() => handleFileUpload(index)}>
                       <View style={styles.btnContent}>
-                        <FontAwesomeIcon icon={faFileArrowUp} size={24} color={'#FDFDFE'} />
+                        <FontAwesomeIcon icon={session.mediaTitle === '' ? faFileArrowUp : faCheck} size={24} color={'#FDFDFE'} />
                       </View>
                     </TouchableOpacity>
                     {index !== 0 && (
