@@ -40,7 +40,7 @@ export default function MeditationBox({ data, onPlay }) {
                     style={styles.favoriteButton} 
                     onPress={toggleFavorite}
                 >
-                    <Icon name={isFavorite ? "favorite" : "favorite-border"} bottom={-1}size={29} color="#9BB1FD" />
+                    <Icon color={isFavorite ?  "#AA99DD":"#BBBBFF" } bottom={-1}size={29} name="favorite" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.playPauseButton} onPress={onPlay}>
